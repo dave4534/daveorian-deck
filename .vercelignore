@@ -1,0 +1,7 @@
+# Skip agent skill pack — not needed for the static deck
+.agents/
+
+# Local / IDE
+.claude/
+.cursor/
+.DS_Store

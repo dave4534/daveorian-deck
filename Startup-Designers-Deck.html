@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-theme-mode="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Dave Orian — Case Study Presentation</title>
+
+  <!-- ============================== FONTS ============================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- ============================== ICONS ============================== -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <style>
+    /* ====================================================================
+       THEME TOKENS
+       Indigo accent reused in both modes per Deck Design Visual Decisions.
+       ==================================================================== */
+    :root {
+      --accent: #6366F1;
+      --accent-strong: #4F46E5;
+      --accent-soft: rgba(99, 102, 241, 0.14);
+      --accent-line: rgba(99, 102, 241, 0.30);
+
+      --green-fiverr: #1DBF73;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+
+      --font-heading: 'Google Sans', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-body:    'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+      --stage-w: 1920px;
+      --stage-h: 1080px;
+    }
+
+    [data-theme="dark"] {
+      --bg:           #0c0c10;
+      --bg-elev:      #14141c;
+      --fg:           #ffffff;
+      --fg-soft:      rgba(255, 255, 255, 0.72);
+      --fg-faint:     rgba(255, 255, 255, 0.48);
+      --card:         rgba(255, 255, 255, 0.045);
+      --card-strong:  rgba(255, 255, 255, 0.075);
+      --card-border:  rgba(255, 255, 255, 0.10);
+      --ghost-border: rgba(255, 255, 255, 0.20);
+      --ghost-hover:  rgba(255, 255, 255, 0.07);
+      --grid-line:    rgba(255, 255, 255, 0.040);
+      --shadow-lg:    0 30px 80px rgba(0, 0, 0, 0.55);
+    }
+
+    [data-theme="light"] {
+      --bg:           #fafaf7;
+      --bg-elev:      #ffffff;
+      --fg:           #18181b;
+      --fg-soft:      rgba(24, 24, 27, 0.74);
+      --fg-faint:     rgba(24, 24, 27, 0.48);
+      --card:         rgba(24, 24, 27, 0.035);
+      --card-strong:  rgba(24, 24, 27, 0.06);
+      --card-border:  rgba(24, 24, 27, 0.10);
+      --ghost-border: rgba(24, 24, 27, 0.18);
+      --ghost-hover:  rgba(24, 24, 27, 0.045);
+      --grid-line:    rgba(24, 24, 27, 0.05);
+      --shadow-lg:    0 24px 60px rgba(24, 24, 27, 0.12);
+    }
+
+    /* ====================================================================
+       RESET
+       ==================================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      transition: background-color 240ms ease, color 240ms ease;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+    button { font: inherit; color: inherit; }
+    a { color: inherit; }
+
+    /* ====================================================================
+       VIEWPORT + STAGE
+       Fixed 1920×1080 stage, scaled uniformly to viewport.
+       ==================================================================== */
+    .deck-viewport {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+    }
+    .deck-stage {
+      position: relative;
+      width: var(--stage-w);
+      height: var(--stage-h);
+      transform-origin: 0 0;
+      background: var(--bg);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* Subtle CSS-only grid background (alignment guide + texture) */
+    .deck-stage::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 80px 80px;
+      background-position: 0 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ====================================================================
+       HEADER (floating, all slides)
+       ==================================================================== */
+    .deck-header {
+      position: absolute;
+      top: 40px; left: 96px; right: 96px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 20;
+      pointer-events: none; /* allow underlying content to receive events */
+    }
+    .deck-header > * { pointer-events: auto; }
+    .brand {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      font-size: 18px;
+      letter-spacing: 0.01em;
+      color: var(--accent);
+    }
+    .header-controls {
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    /* ====================================================================
+       THEME TOGGLE (three-state pill: Sun / System / Moon)
+       ==================================================================== */
+    .theme-toggle {
+      display: inline-flex; align-items: center;
+      padding: 3px;
+      border-radius: 999px;
+      border: 1px solid var(--ghost-border);
+      background: var(--card);
+      backdrop-filter: blur(8px);
+    }
+    .theme-toggle button {
+      width: 34px; height: 34px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: 999px;
+      color: var(--fg-soft);
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease;
+    }
+    .theme-toggle button:hover { color: var(--fg); background: var(--ghost-hover); }
+    .theme-toggle button.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .theme-toggle button.active:hover { color: var(--accent); background: var(--accent-soft); }
+    .theme-toggle svg { width: 16px; height: 16px; }
+
+    /* ====================================================================
+       MORE MENU (three-dot)
+       ==================================================================== */
+    .more-wrap { position: relative; }
+    .more-btn {
+      width: 40px; height: 40px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--card);
+      border: 1px solid var(--ghost-border);
+      border-radius: 999px;
+      color: var(--fg-soft);
+      cursor: pointer;
+      transition: background 180ms, color 180ms, border-color 180ms;
+      backdrop-filter: blur(8px);
+    }
+    .more-btn:hover { background: var(--ghost-hover); color: var(--fg); }
+    .more-btn svg { width: 16px; height: 16px; }
+
+    .more-menu {
+      position: absolute; top: 52px; right: 0;
+      min-width: 220px;
+      padding: 6px;
+      background: var(--bg-elev);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      box-shadow: var(--shadow-lg);
+      opacity: 0; visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms;
+      z-index: 30;
+    }
+    .more-menu.open {
+      opacity: 1; visibility: visible; transform: translateY(0);
+      transition: opacity 180ms ease, transform 180ms ease, visibility 0s;
+    }
+    .more-menu button {
+      width: 100%; text-align: left;
+      padding: 10px 14px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .more-menu button:hover { background: var(--ghost-hover); }
+    .more-menu svg { width: 14px; height: 14px; opacity: 0.7; }
+
+    /* ====================================================================
+       FOOTER (ghost nav buttons)
+       ==================================================================== */
+    .deck-footer {
+      position: absolute;
+      bottom: 40px; left: 96px; right: 96px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 20;
+    }
+    .nav-btn {
+      padding: 12px 22px;
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent;
+      border: 1px solid var(--ghost-border);
+      border-radius: 999px;
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: background 180ms, border-color 180ms, color 180ms, opacity 240ms;
+    }
+    .nav-btn:hover {
+      background: var(--ghost-hover);
+      border-color: var(--fg-soft);
+    }
+    .nav-btn svg { width: 16px; height: 16px; }
+    .nav-btn.hidden { visibility: hidden; opacity: 0; pointer-events: none; }
+    .nav-btn .lucide-rotate-ccw { transform: scaleX(-1); } /* unused, just safety */
+
+    /* ====================================================================
+       SLIDES
+       ==================================================================== */
+    .slides {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 1;
+    }
+    .slide {
+      position: absolute; inset: 0;
+      padding: 150px 120px 130px;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      display: flex; flex-direction: column; justify-content: center;
+      transition: opacity 800ms var(--ease-in-out),
+                  visibility 0s linear 800ms;
+    }
+    .slide.active {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 800ms var(--ease-in-out),
+                  visibility 0s;
+    }
+
+    /* ====================================================================
+       TYPOGRAPHY
+       ==================================================================== */
+    h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--fg); }
+    h1 {
+      font-weight: 700;
+      font-size: 56px;
+      line-height: 1.08;
+      letter-spacing: -0.012em;
+    }
+    h2 {
+      font-weight: 500;
+      font-size: 44px;
+      line-height: 1.12;
+      letter-spacing: -0.008em;
+    }
+    h3 {
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: -0.002em;
+    }
+    .eyebrow {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .meta-row {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      color: var(--fg-faint);
+      text-transform: uppercase;
+    }
+    p, .body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.6;
+      letter-spacing: 0.015em;
+      color: var(--fg-soft);
+    }
+    .body-lg { font-size: 18px; }
+    .explainer {
+      font-style: italic;
+      color: var(--fg-faint);
+      font-size: 15px;
+    }
+    .accent-text { color: var(--accent); }
+
+    /* ====================================================================
+       LAYOUT — two-column
+       Text anchors to left edge, visual anchors to right edge,
+       generous gutter between.
+       ==================================================================== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: center;
+      width: 100%;
+    }
+    .two-col .text-col { display: flex; flex-direction: column; gap: 22px; }
+    .two-col .visual-col {
+      display: flex; align-items: center; justify-content: flex-end;
+    }
+    .two-col.swap .text-col { order: 2; }
+    .two-col.swap .visual-col { order: 1; justify-content: flex-start; }
+
+    .visual-frame {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      max-width: 100%;
+    }
+    .visual-frame img,
+    .visual-frame video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ====================================================================
+       SLIDE 1 — TITLE
+       ==================================================================== */
+    .slide-1 .text-col { gap: 18px; }
+    .slide-1 .name-line {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .slide-1 h1 { font-size: 60px; }
+    .slide-1 .feature-line {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      font-size: 26px;
+      color: var(--accent);
+      letter-spacing: -0.005em;
+    }
+    .slide-1 .greeting {
+      font-size: 18px;
+      color: var(--fg-soft);
+      margin-top: 8px;
+      max-width: 520px;
+    }
+    .slide-1 .stack-block { margin-top: 32px; }
+    .slide-1 .stack-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+      margin-bottom: 16px;
+    }
+    .stack-row {
+      display: flex; gap: 14px; align-items: center;
+    }
+    .stack-icon {
+      width: 50px; height: 50px;
+      border-radius: 8px;
+      background: var(--card-strong);
+      border: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    .stack-icon img { width: 32px; height: 32px; object-fit: contain; }
+    .slide-1.active .stack-icon {
+      animation: stackSlideIn 800ms var(--ease-out-expo) forwards;
+    }
+    .slide-1.active .stack-icon:nth-child(1) { animation-delay: 250ms; }
+    .slide-1.active .stack-icon:nth-child(2) { animation-delay: 320ms; }
+    .slide-1.active .stack-icon:nth-child(3) { animation-delay: 390ms; }
+    .slide-1.active .stack-icon:nth-child(4) { animation-delay: 460ms; }
+    .slide-1.active .stack-icon:nth-child(5) { animation-delay: 530ms; }
+
+    @keyframes stackSlideIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .slide-1 .portrait {
+      width: 100%;
+      max-width: 540px;
+      aspect-ratio: 1 / 1;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-lg);
+    }
+    .slide-1 .portrait img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* ====================================================================
+       SLIDE 2 — TIMELINE
+       ==================================================================== */
+    .slide-2 .timeline-wrap {
+      width: 100%;
+      margin-top: 56px;
+    }
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      padding: 0 20px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 60px; right: 60px;
+      top: 64px;
+      height: 2px;
+      background: linear-gradient(
+        to right,
+        var(--card-border) 0%,
+        var(--accent-line) 30%,
+        var(--accent-line) 70%,
+        var(--card-border) 100%
+      );
+    }
+    .milestone {
+      display: flex; flex-direction: column; align-items: flex-start;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .slide-2.active .milestone {
+      animation: msReveal 700ms var(--ease-out-expo) forwards;
+    }
+    .slide-2.active .milestone:nth-child(1) { animation-delay: 200ms; }
+    .slide-2.active .milestone:nth-child(2) { animation-delay: 320ms; }
+    .slide-2.active .milestone:nth-child(3) { animation-delay: 440ms; }
+    .slide-2.active .milestone:nth-child(4) { animation-delay: 560ms; }
+    .slide-2.active .milestone:nth-child(5) { animation-delay: 680ms; }
+
+    @keyframes msReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .milestone .year {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      color: var(--fg-faint);
+      margin-bottom: 14px;
+    }
+    .milestone .dot {
+      width: 24px; height: 24px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 0 5px var(--accent-soft);
+      margin-bottom: 22px;
+      transition: transform 240ms var(--ease-out-expo);
+    }
+    .milestone:hover .dot {
+      transform: scale(1.18);
+    }
+    .milestone .logo {
+      width: 64px; height: 64px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      padding: 10px;
+    }
+    .milestone .logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .milestone[data-tone="fiverr"] .logo {
+      background: rgba(29, 191, 115, 0.10);
+      border-color: rgba(29, 191, 115, 0.32);
+    }
+    .milestone[data-tone="text-only"] .logo {
+      background: var(--accent-soft);
+      border-color: var(--accent-line);
+      color: var(--accent);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 22px;
+    }
+    .milestone .body {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--fg-soft);
+      max-width: 260px;
+    }
+    .milestone .ms-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--fg);
+      margin-bottom: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    .slide-2 .intro-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 80px;
+      align-items: end;
+    }
+
+    /* ====================================================================
+       SLIDE 3 — HERO
+       ==================================================================== */
+    .slide-3 h1 { font-size: 50px; }
+    .slide-3 .subhead {
+      font-size: 20px;
+      color: var(--fg-soft);
+      max-width: 540px;
+      line-height: 1.5;
+    }
+    .slide-3 .meta-row { margin-top: 8px; }
+    .slide-3 .visual-frame { max-width: 720px; }
+
+    /* ====================================================================
+       SLIDE 4 — PLANNER
+       ==================================================================== */
+    .slide-4 .planner-meet {
+      display: flex; gap: 18px; align-items: center;
+      margin-bottom: 10px;
+    }
+    .slide-4 .planner-avatar {
+      width: 88px; height: 88px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-lg);
+      flex-shrink: 0;
+    }
+    .slide-4 .planner-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .slide-4 .planner-meet .label {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 22px;
+      color: var(--fg);
+    }
+    .slide-4 .visual-frame {
+      max-width: 540px;
+      aspect-ratio: 1 / 1;
+      border-radius: 24px;
+    }
+    .slide-4 .visual-frame img { height: 100%; object-fit: cover; }
+
+    /* ====================================================================
+       SLIDE 5 — VIDEO
+       ==================================================================== */
+    .slide-5 ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .slide-5 li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--fg-soft);
+    }
+    .slide-5 li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12px;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 999px;
+    }
+    .slide-5 li strong { color: var(--fg); font-weight: 600; }
+    .slide-5 .visual-frame { max-width: 740px; }
+    .slide-5 video { width: 100%; height: auto; background: #000; }
+    .slide-5 .explainer { margin-top: 8px; max-width: 520px; }
+
+    /* ====================================================================
+       MULTI-PART SLIDES (6, 7, 8)
+       Headline persists; .slide-part swaps with fade/slide.
+       ==================================================================== */
+    .multi-part {
+      display: flex; flex-direction: column;
+      gap: 32px;
+    }
+    .multi-part .persist-headline {
+      max-width: 1100px;
+    }
+    .part-region {
+      position: relative;
+      flex: 1;
+      min-height: 640px;
+    }
+    .slide-part {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(16px);
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 800ms var(--ease-out-expo),
+                  transform 800ms var(--ease-out-expo),
+                  visibility 0s linear 800ms;
+    }
+    .slide-part.active {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 800ms var(--ease-out-expo),
+                  transform 800ms var(--ease-out-expo),
+                  visibility 0s;
+    }
+
+    /* Part indicator pips (top-right of stage, below header) */
+    .part-pips {
+      position: absolute;
+      top: 92px; right: 96px;
+      display: flex; gap: 8px;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 240ms ease;
+    }
+    .part-pips.visible { opacity: 1; }
+    .part-pips .pip {
+      width: 28px; height: 4px;
+      border-radius: 999px;
+      background: var(--card-strong);
+      transition: background 240ms ease, transform 240ms ease;
+    }
+    .part-pips .pip.active {
+      background: var(--accent);
+      transform: scaleY(1.4);
+    }
+
+    /* ====================================================================
+       SLIDE 6 — APPROACH (4 parts)
+       ==================================================================== */
+    .slide-6 .research-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .slide-6 .research-card {
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .slide-6 .tool-badge {
+      width: 56px; height: 56px;
+      border-radius: 12px;
+      background: var(--card-strong);
+      border: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: center;
+      padding: 8px;
+    }
+    .slide-6 .tool-badge img { width: 100%; height: 100%; object-fit: contain; }
+    .slide-6 .research-card h3 {
+      font-size: 22px;
+    }
+    .slide-6 .research-visual {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      box-shadow: var(--shadow-lg);
+    }
+    .slide-6 .research-visual img { width: 100%; height: auto; display: block; }
+
+    .slide-6 .synthesis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .slide-6 .stats-block {
+      display: flex; flex-direction: column; gap: 48px;
+      max-width: 980px;
+    }
+    .slide-6 .stat-row {
+      display: flex; align-items: baseline; gap: 36px;
+    }
+    .slide-6 .stat-num {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 160px;
+      line-height: 1;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      flex-shrink: 0;
+      min-width: 360px;
+    }
+    .slide-6 .stat-body {
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--fg-soft);
+      max-width: 580px;
+    }
+    .slide-6 .stat-body strong { color: var(--fg); font-weight: 600; }
+    .slide-6 .stats-intro {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      font-size: 22px;
+      color: var(--fg-soft);
+      margin-bottom: 8px;
+    }
+
+    .slide-6 .themes-block {
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .slide-6 .themes-intro {
+      font-size: 17px;
+      color: var(--fg-soft);
+      max-width: 900px;
+    }
+    .slide-6 .themes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .theme-card {
+      padding: 28px 30px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .slide-6 .slide-part.active .theme-card {
+      animation: themeReveal 700ms var(--ease-out-expo) forwards;
+    }
+    .slide-6 .slide-part.active .theme-card:nth-child(1) { animation-delay: 220ms; }
+    .slide-6 .slide-part.active .theme-card:nth-child(2) { animation-delay: 340ms; }
+
+    @keyframes themeReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .theme-card .theme-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 20px;
+      color: var(--accent);
+      margin-bottom: 18px;
+      letter-spacing: 0.005em;
+    }
+    .theme-card ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .theme-card li {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--fg-soft);
+    }
+    .theme-card li strong { color: var(--fg); font-weight: 600; }
+
+    /* ====================================================================
+       SLIDE 7 — AI FLOW (4 parts)
+       ==================================================================== */
+    .slide-7 .ai-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 80px;
+      align-items: center;
+      height: 100%;
+    }
+    .slide-7 .ai-body { font-size: 18px; line-height: 1.55; color: var(--fg-soft); max-width: 560px; }
+    .slide-7 .ai-visual {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      box-shadow: var(--shadow-lg);
+      max-width: 820px;
+      margin-left: auto;
+    }
+    .slide-7 .ai-visual img { width: 100%; height: auto; display: block; }
+
+    /* ====================================================================
+       SLIDE 8 — ITERATION (2 parts)
+       ==================================================================== */
+    .slide-8 .iter-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: 80px;
+      align-items: center;
+    }
+    .slide-8 .iter-sub {
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--fg-soft);
+      max-width: 520px;
+    }
+    .slide-8 .iter-visual {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+    }
+    .slide-8 .iter-visual img { width: 100%; height: auto; display: block; }
+
+    /* ====================================================================
+       SLIDE 9 — THANK YOU
+       ==================================================================== */
+    .slide-9 .closing {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 32px;
+      text-align: center;
+      margin: auto;
+      max-width: 720px;
+    }
+    .slide-9 .closing-avatar {
+      width: 120px; height: 120px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 2px solid var(--accent-soft);
+      box-shadow: 0 0 0 8px var(--accent-soft), var(--shadow-lg);
+    }
+    .slide-9 .closing-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .slide-9 h2 { font-size: 64px; font-weight: 500; }
+    .slide-9 p { font-size: 19px; color: var(--fg-soft); }
+
+    /* ====================================================================
+       REDUCED MOTION
+       ==================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- =====================================================================
+       MAIN VIEWPORT
+       ===================================================================== -->
+  <div class="deck-viewport" id="viewport">
+    <div class="deck-stage" id="stage">
+
+      <!-- ============================== HEADER ============================== -->
+      <header class="deck-header">
+        <div class="brand">Dave Orian &mdash; Sr. Product Designer</div>
+        <div class="header-controls">
+
+          <!-- Theme toggle: Sun / System / Moon -->
+          <div class="theme-toggle" role="group" aria-label="Theme">
+            <button data-theme-set="light" aria-label="Light theme" title="Light">
+              <i data-lucide="sun"></i>
+            </button>
+            <button data-theme-set="system" aria-label="System theme" title="System">
+              <i data-lucide="monitor"></i>
+            </button>
+            <button data-theme-set="dark" aria-label="Dark theme" title="Dark">
+              <i data-lucide="moon"></i>
+            </button>
+          </div>
+
+          <!-- More menu -->
+          <div class="more-wrap">
+            <button class="more-btn" id="moreBtn" aria-label="More options" title="More">
+              <i data-lucide="more-vertical"></i>
+            </button>
+            <div class="more-menu" id="moreMenu" role="menu">
+              <button id="presenterNotesBtn" role="menuitem">
+                <i data-lucide="notebook-pen"></i>
+                Presenter Notes
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Multi-part pip indicator -->
+      <div class="part-pips" id="partPips" aria-hidden="true"></div>
+
+      <!-- ============================== SLIDES ============================== -->
+      <div class="slides">
+
+        <!-- ========== SLIDE 1 — TITLE ========== -->
+        <section
+          class="slide slide-1"
+          data-layout="two-column"
+          data-notes="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi."
+        >
+          <div class="two-col">
+            <div class="text-col">
+              <div class="name-line">
+                <span class="eyebrow">Case Study</span>
+                <h1>Dave Orian &mdash;<br />Case Study Presentation</h1>
+                <div class="feature-line">Capacity Planning</div>
+              </div>
+              <p class="greeting">Hi there, thanks for taking the time to meet with me!</p>
+
+              <div class="stack-block">
+                <div class="stack-label">My daily tool-stack</div>
+                <div class="stack-row" id="stackRow">
+                  <div class="stack-icon"><img src="Slide Visuals/My Stack/Claude.svg" alt="Claude" /></div>
+                  <div class="stack-icon"><img src="Slide Visuals/My Stack/Cursor.svg" alt="Cursor" /></div>
+                  <div class="stack-icon"><img src="Slide Visuals/My Stack/Obsidian.svg" alt="Obsidian" /></div>
+                  <div class="stack-icon"><img src="Slide Visuals/My Stack/NotebookLM.svg" alt="NotebookLM" /></div>
+                  <div class="stack-icon"><img src="Slide Visuals/My Stack/Figma.svg" alt="Figma" /></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="visual-col">
+              <div class="portrait">
+                <img src="Slide Visuals/dave.png" alt="Dave Orian" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SLIDE 2 — TIMELINE ========== -->
+        <section
+          class="slide slide-2"
+          data-layout="context-driven"
+          data-notes="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim."
+        >
+          <div class="intro-row">
+            <div>
+              <span class="eyebrow">A bit about me</span>
+              <h1 style="margin-top: 12px;">A bit about me</h1>
+            </div>
+            <p style="font-size: 18px; line-height: 1.6;">
+              I discovered my passion for technology after founding a restaurant business with my brother in Oregon. I flew to India to try and assemble a team (and to grow a huge mustache) and realized that I need to join the best of the best at Shenkar.
+            </p>
+          </div>
+
+          <div class="timeline-wrap">
+            <div class="timeline">
+
+              <div class="milestone">
+                <div class="year">2015</div>
+                <div class="dot"></div>
+                <div class="logo"><img src="Slide Visuals/Timeline Logos/Shenkar logo.svg" alt="Shenkar" /></div>
+                <div class="ms-title">Shenkar</div>
+                <p class="body">After studying UX and interaction design at Shenkar, I enrolled in a front-end developer program to help me better understand how to build the products I wanted to build.</p>
+              </div>
+
+              <div class="milestone">
+                <div class="year">2018</div>
+                <div class="dot"></div>
+                <div class="logo"><img src="Slide Visuals/Timeline Logos/Vonage logo.svg" alt="Vonage" /></div>
+                <div class="ms-title">Vonage</div>
+                <p class="body">I owned the UX/UI design for the R&amp;D of Vonage.</p>
+              </div>
+
+              <div class="milestone" data-tone="fiverr">
+                <div class="year">2019</div>
+                <div class="dot" style="border-color: var(--green-fiverr); box-shadow: 0 0 0 5px rgba(29, 191, 115, 0.16);"></div>
+                <div class="logo"><img src="Slide Visuals/Timeline Logos/Fiverr.svg" alt="Fiverr" /></div>
+                <div class="ms-title">Fiverr</div>
+                <p class="body">Led design for native mobile apps, marketplace dashboards, and buyer/seller tools.</p>
+              </div>
+
+              <div class="milestone">
+                <div class="year">2022</div>
+                <div class="dot"></div>
+                <div class="logo"><img src="Slide Visuals/Timeline Logos/SF.svg" alt="Salesforce" /></div>
+                <div class="ms-title">Salesforce</div>
+                <p class="body">Led large-scale design efforts in Field Service including AI-Agent based Capacity Planning.</p>
+              </div>
+
+              <div class="milestone" data-tone="text-only">
+                <div class="year">2026</div>
+                <div class="dot"></div>
+                <div class="logo">SD</div>
+                <div class="ms-title">Startup Designers</div>
+                <p class="body">Bring clarity and trust to a technically complex product.</p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SLIDE 3 — HERO ========== -->
+        <section
+          class="slide slide-3"
+          data-layout="two-column"
+          data-notes="Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu."
+        >
+          <div class="two-col">
+            <div class="text-col">
+              <span class="eyebrow">Case Study · Salesforce Field Service</span>
+              <h1>Leading the design for an AI-agent based workforce planning system</h1>
+              <p class="subhead">How I helped Salesforce Field Service Planners see capacity gaps before they became emergencies.</p>
+              <div class="meta-row">Product Designer &middot; Salesforce &middot; 2025</div>
+            </div>
+            <div class="visual-col">
+              <div class="visual-frame">
+                <img src="Slide Visuals/Capacity Planing Dashboard.png" alt="Capacity Planning dashboard" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SLIDE 4 — WHAT'S A PLANNER ========== -->
+        <section
+          class="slide slide-4"
+          data-layout="two-column"
+          data-notes="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis."
+        >
+          <div class="two-col">
+            <div class="text-col">
+              <span class="eyebrow">Who is the user</span>
+              <h1>What's a Planner?</h1>
+              <div class="planner-meet">
+                <div class="planner-avatar"><img src="Slide Visuals/Sam.png" alt="Sam the Planner" /></div>
+                <div>
+                  <div class="label">Meet Sam, the Planner.</div>
+                </div>
+              </div>
+              <p class="body-lg">Salesforce Field Service powers enterprise companies including telecom crews and HVAC fleets with tools for their end-to-end operations.</p>
+              <p class="body-lg">Within large organizations, Operations Planners are responsible for making sure there are enough people to do the work in 1&ndash;3 months.</p>
+            </div>
+            <div class="visual-col">
+              <div class="visual-frame">
+                <img src="Slide Visuals/Sam.png" alt="Sam, the Planner" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SLIDE 5 — FEATURE TO SUITE ========== -->
+        <section
+          class="slide slide-5"
+          data-layout="two-column"
+          data-notes="Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        >
+          <div class="two-col">
+            <div class="text-col">
+              <span class="eyebrow">From feature to suite</span>
+              <h1>A feature that evolved into a Suite</h1>
+              <ul>
+                <li>I owned the design for <strong>Capacity Limits</strong> at Salesforce Field Service.</li>
+                <li>The feature was showcased across the company and prioritized to evolve into a more holistic <strong>Planning Suite</strong>.</li>
+              </ul>
+              <p class="explainer">The Capacity Limits dashboard was Sam's first real signal. It proved the concept before we built the system.</p>
+            </div>
+            <div class="visual-col">
+              <div class="visual-frame">
+                <video
+                  src="https://portfolio-vids.b-cdn.net/Capacity%20Limits%20Video%203.mov"
+                  controls
+                  muted
+                  playsinline
+                  preload="metadata"
+                ></video>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SLIDE 6 — APPROACH (multi-part: 4) ========== -->
+        <section
+          class="slide slide-6 multi-part"
+          data-layout="context-driven"
+          data-notes="At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint."
+        >
+          <div class="persist-headline">
+            <span class="eyebrow">Discovery &amp; synthesis</span>
+            <h1 style="margin-top: 12px;">My approach to understanding the Planner</h1>
+          </div>
+
+          <div class="part-region">
+
+            <!-- Part 1: Research gathering -->
+            <div class="slide-part active">
+              <div class="research-grid">
+                <div class="research-card">
+                  <div class="tool-badge"><img src="Slide Visuals/My Stack/NotebookLM.svg" alt="NotebookLM" /></div>
+                  <h3>I gathered existing research data</h3>
+                  <p class="body-lg">First I gathered existing research within the UX research organization as well as research done by an external third party and fed over 20 documents into a NotebookLM.</p>
+                </div>
+                <div class="research-card">
+                  <div class="tool-badge" style="background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent);">
+                    <i data-lucide="users-round" style="width: 26px; height: 26px;"></i>
+                  </div>
+                  <h3>I also ran an affinity-mapping workshop</h3>
+                  <p class="body-lg">I gathered domain experts and users to understand how planners in specific industries were experiencing pains with planning.</p>
+                  <div class="research-visual" style="margin-top: 14px;">
+                    <img src="Slide Visuals/Affinity Mapping.png" alt="Affinity mapping workshop" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Part 2: Synthesis with Claude -->
+            <div class="slide-part">
+              <div class="synthesis-grid">
+                <div>
+                  <div class="tool-badge"><img src="Slide Visuals/My Stack/Claude.svg" alt="Claude" /></div>
+                  <h3 style="margin-top: 18px;">Synthesis with Claude</h3>
+                  <p class="body-lg" style="margin-top: 14px;">I extracted user stories as well as a flowchart using Claude, and the Figma MCP within Claude.</p>
+                </div>
+                <div class="research-visual">
+                  <img src="Slide Visuals/Capacity Flowchart.png" alt="Capacity flowchart synthesized in Claude" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Part 3: Big numbers -->
+            <div class="slide-part">
+              <div class="stats-block">
+                <div class="stats-intro">To put the problem in clear terms:</div>
+                <div class="stat-row">
+                  <div class="stat-num" data-counter="30" data-suffix="%">0%</div>
+                  <div class="stat-body"><strong>30% of total work hours</strong> are spent handling unplanned emergencies, disrupting planned work and reducing capacity.</div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-num" data-counter="25" data-suffix="%">0%</div>
+                  <div class="stat-body"><strong>25% of companies</strong> still use spreadsheets for job scheduling, leading to error rates and information silos.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Part 4: Themes -->
+            <div class="slide-part">
+              <div class="themes-block">
+                <p class="themes-intro">After synthesizing the data, I found the layered themes from each pointing to a design approach.</p>
+                <div class="themes-grid">
+                  <div class="theme-card">
+                    <div class="theme-title">What Planners face</div>
+                    <ul>
+                      <li><strong>Power outages during storms</strong> &mdash; Mutual aid agreements between utilities share resources but spike demand.</li>
+                      <li><strong>Humanitarian aid during crises</strong> &mdash; Companies respond to worldwide SOS crises, such as climate emergencies.</li>
+                      <li><strong>Annual, advertised events</strong> &mdash; Marketing campaigns and holiday shopping cause service demand spikes.</li>
+                    </ul>
+                  </div>
+                  <div class="theme-card">
+                    <div class="theme-title">How Sam is expected to fix it</div>
+                    <ul>
+                      <li><strong>Autonomous negotiation</strong> &mdash; Enable AI agents to interact as planners who negotiate between organizations.</li>
+                      <li><strong>Upskill management</strong> &mdash; Identify skill gaps and training needs; provide pathways for upskilling.</li>
+                      <li><strong>Allocation based on urgency</strong> &mdash; Measure and prioritize according to urgency of work and service needs.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ========== SLIDE 7 — AI FLOW (multi-part: 4) ========== -->
+        <section
+          class="slide slide-7 multi-part"
+          data-layout="two-column"
+          data-notes="Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat."
+        >
+          <div class="persist-headline">
+            <span class="eyebrow">Solution</span>
+            <h1 style="margin-top: 12px; max-width: 1100px;">An AI agent-based approach to capacity gap detection and resolution</h1>
+          </div>
+
+          <div class="part-region">
+            <!-- Part 1 -->
+            <div class="slide-part active">
+              <div class="ai-grid">
+                <p class="ai-body">I concluded that Sam should be able to land, understand her situation, and take action without friction. I designed an <strong style="color: var(--fg);">AI Gap Resolution Agent</strong> that can be entrusted to handle gap resolutions.</p>
+                <div class="ai-visual"><img src="Slide Visuals/AI Flow/AI - 1.png" alt="AI flow — step 1" /></div>
+              </div>
+            </div>
+            <!-- Part 2 -->
+            <div class="slide-part">
+              <div class="ai-grid">
+                <p class="ai-body">I concluded that Sam should be able to land, understand her situation, and take action without friction. I designed an <strong style="color: var(--fg);">AI Gap Resolution Agent</strong> that can be entrusted to handle gap resolutions.</p>
+                <div class="ai-visual"><img src="Slide Visuals/AI Flow/AI - 2.png" alt="AI flow — step 2" /></div>
+              </div>
+            </div>
+            <!-- Part 3 (body swaps) -->
+            <div class="slide-part">
+              <div class="ai-grid">
+                <p class="ai-body">Because AI patterns hadn't been established at Salesforce, I used the design system and emerging market patterns and best practices to design AI patterns for an exceptional user experience.</p>
+                <div class="ai-visual"><img src="Slide Visuals/AI Flow/AI - 3.png" alt="AI flow — step 3" /></div>
+              </div>
+            </div>
+            <!-- Part 4 -->
+            <div class="slide-part">
+              <div class="ai-grid">
+                <p class="ai-body">Because AI patterns hadn't been established at Salesforce, I used the design system and emerging market patterns and best practices to design AI patterns for an exceptional user experience.</p>
+                <div class="ai-visual"><img src="Slide Visuals/AI Flow/AI - 4.png" alt="AI flow — step 4" /></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SLIDE 8 — ITERATION (multi-part: 2) ========== -->
+        <section
+          class="slide slide-8 multi-part"
+          data-layout="context-driven"
+          data-notes="Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae itaque earum rerum hic tenetur."
+        >
+          <div class="persist-headline">
+            <span class="eyebrow">Process</span>
+            <h1 style="margin-top: 12px; max-width: 1300px;">I worked hand in hand with the Product, Design and Development teams in a continuous iteration cycle</h1>
+          </div>
+
+          <div class="part-region">
+            <!-- Part 1: UX Process -->
+            <div class="slide-part active">
+              <div class="iter-grid">
+                <div>
+                  <p class="iter-sub">Design concepts are continuously communicated with product and development teams.</p>
+                </div>
+                <div class="iter-visual">
+                  <img src="Slide Visuals/UX Process.svg" alt="Continuous UX process flow" />
+                </div>
+              </div>
+            </div>
+            <!-- Part 2: Design Stakeholders -->
+            <div class="slide-part">
+              <div class="iter-grid">
+                <div>
+                  <p class="iter-sub">UX best practices and component updates were continuously aligned and validated with several UX bodies within the organization, including the field service design team, Tableau analytics and the Salesforce Lightning Design System teams.</p>
+                </div>
+                <div class="iter-visual">
+                  <img src="Slide Visuals/Design Stakeholders.png" alt="Design stakeholders map" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SLIDE 9 — THANK YOU ========== -->
+        <section
+          class="slide slide-9"
+          data-layout="context-driven"
+          data-notes="Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo voluptas nulla pariatur at vero."
+        >
+          <div class="closing">
+            <div class="closing-avatar"><img src="Slide Visuals/dave.png" alt="Dave Orian" /></div>
+            <h2>Thank you!</h2>
+            <p>I appreciate you coming along this brief journey with me.</p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ============================== FOOTER ============================== -->
+      <footer class="deck-footer">
+        <button class="nav-btn hidden" id="prevBtn">
+          <i data-lucide="arrow-left"></i> Previous
+        </button>
+        <button class="nav-btn" id="nextBtn">
+          Next <i data-lucide="arrow-right"></i>
+        </button>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    /* =====================================================================
+       STAGE SCALING — uniform scale to viewport, letterbox/pillarbox.
+       ===================================================================== */
+    (function setupStageScaling() {
+      const stage = document.getElementById('stage');
+      const STAGE_W = 1920, STAGE_H = 1080;
+
+      function fit() {
+        const sx = window.innerWidth / STAGE_W;
+        const sy = window.innerHeight / STAGE_H;
+        const scale = Math.min(sx, sy);
+        const x = (window.innerWidth  - STAGE_W * scale) / 2;
+        const y = (window.innerHeight - STAGE_H * scale) / 2;
+        stage.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+      }
+      fit();
+      window.addEventListener('resize', fit);
+    })();
+
+    /* =====================================================================
+       LUCIDE — instantiate icons after DOM ready.
+       ===================================================================== */
+    if (window.lucide && typeof lucide.createIcons === 'function') {
+      lucide.createIcons();
+    }
+
+    /* =====================================================================
+       STATE
+       ===================================================================== */
+    const slides   = Array.from(document.querySelectorAll('.slide'));
+    const totalSlides = slides.length;
+    const partsBy = slides.map(s => Array.from(s.querySelectorAll('.slide-part')));
+    let currentSlide = 0;
+    let currentPart  = 0;
+
+    const prevBtn  = document.getElementById('prevBtn');
+    const nextBtn  = document.getElementById('nextBtn');
+    const partPips = document.getElementById('partPips');
+
+    /* =====================================================================
+       NAVIGATION
+       ===================================================================== */
+    function partCount(slideIdx) {
+      return partsBy[slideIdx].length;
+    }
+
+    function setPart(slideIdx, partIdx) {
+      const parts = partsBy[slideIdx];
+      if (!parts.length) return;
+      parts.forEach((p, i) => p.classList.toggle('active', i === partIdx));
+    }
+
+    function renderPips() {
+      const count = partCount(currentSlide);
+      if (count <= 1) {
+        partPips.classList.remove('visible');
+        partPips.innerHTML = '';
+        return;
+      }
+      partPips.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const pip = document.createElement('div');
+        pip.className = 'pip' + (i === currentPart ? ' active' : '');
+        partPips.appendChild(pip);
+      }
+      partPips.classList.add('visible');
+    }
+
+    function updateNav() {
+      // Prev visibility
+      if (currentSlide === 0 && currentPart === 0) {
+        prevBtn.classList.add('hidden');
+      } else {
+        prevBtn.classList.remove('hidden');
+      }
+
+      // Next: on the very last part of the very last slide → "Start Over"
+      const onLastSlide = currentSlide === totalSlides - 1;
+      const onLastPart  = currentPart === Math.max(0, partCount(currentSlide) - 1);
+
+      nextBtn.innerHTML = '';
+      const label = document.createElement('span');
+      if (onLastSlide && onLastPart) {
+        label.textContent = 'Start Over';
+        nextBtn.appendChild(label);
+        const ico = document.createElement('i');
+        ico.setAttribute('data-lucide', 'rotate-ccw');
+        nextBtn.appendChild(ico);
+      } else {
+        label.textContent = 'Next';
+        nextBtn.appendChild(label);
+        const ico = document.createElement('i');
+        ico.setAttribute('data-lucide', 'arrow-right');
+        nextBtn.appendChild(ico);
+      }
+
+      if (window.lucide) lucide.createIcons();
+
+      renderPips();
+    }
+
+    function applySlide(slideIdx, partIdx) {
+      currentSlide = Math.max(0, Math.min(totalSlides - 1, slideIdx));
+      currentPart  = Math.max(0, Math.min(Math.max(0, partCount(currentSlide) - 1), partIdx));
+
+      slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+      setPart(currentSlide, currentPart);
+
+      updateNav();
+      triggerCounters();
+      syncToPresenter();
+    }
+
+    function next() {
+      const pCount = partCount(currentSlide);
+      if (pCount > 1 && currentPart < pCount - 1) {
+        currentPart++;
+        setPart(currentSlide, currentPart);
+        updateNav();
+        triggerCounters();
+        syncToPresenter();
+        return;
+      }
+      if (currentSlide < totalSlides - 1) {
+        applySlide(currentSlide + 1, 0);
+      } else {
+        // On the very last part: clicking Next restarts the deck
+        applySlide(0, 0);
+      }
+    }
+
+    function prev() {
+      if (currentPart > 0) {
+        currentPart--;
+        setPart(currentSlide, currentPart);
+        updateNav();
+        syncToPresenter();
+        return;
+      }
+      if (currentSlide > 0) {
+        const newSlide = currentSlide - 1;
+        const lastPart = Math.max(0, partCount(newSlide) - 1);
+        applySlide(newSlide, lastPart);
+      }
+    }
+
+    nextBtn.addEventListener('click', next);
+    prevBtn.addEventListener('click', prev);
+
+    // Keyboard
+    window.addEventListener('keydown', (e) => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault(); next();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault(); prev();
+      } else if (e.key === 'Home') {
+        e.preventDefault(); applySlide(0, 0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        const last = totalSlides - 1;
+        applySlide(last, Math.max(0, partCount(last) - 1));
+      }
+    });
+
+    /* =====================================================================
+       THEME (Sun / System / Moon)
+       ===================================================================== */
+    const themeButtons = document.querySelectorAll('[data-theme-set]');
+    const root = document.documentElement;
+    const mql = window.matchMedia('(prefers-color-scheme: light)');
+
+    function applyTheme(mode) {
+      root.setAttribute('data-theme-mode', mode);
+      if (mode === 'system') {
+        root.setAttribute('data-theme', mql.matches ? 'light' : 'dark');
+      } else {
+        root.setAttribute('data-theme', mode);
+      }
+      themeButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-theme-set') === mode);
+      });
+      try { localStorage.setItem('deck-theme-mode', mode); } catch (_) {}
+    }
+
+    themeButtons.forEach(btn => {
+      btn.addEventListener('click', () => applyTheme(btn.getAttribute('data-theme-set')));
+    });
+
+    mql.addEventListener && mql.addEventListener('change', () => {
+      if (root.getAttribute('data-theme-mode') === 'system') applyTheme('system');
+    });
+
+    // Initial — dark by default, restore from storage if present
+    let storedMode = 'dark';
+    try { storedMode = localStorage.getItem('deck-theme-mode') || 'dark'; } catch (_) {}
+    applyTheme(storedMode);
+
+    /* =====================================================================
+       MORE MENU
+       ===================================================================== */
+    const moreBtn  = document.getElementById('moreBtn');
+    const moreMenu = document.getElementById('moreMenu');
+    moreBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      moreMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', () => moreMenu.classList.remove('open'));
+
+    /* =====================================================================
+       COUNTERS (Slide 6 Part 3)
+       ===================================================================== */
+    function triggerCounters() {
+      const slide = slides[currentSlide];
+      const activePart = slide.querySelector('.slide-part.active') || slide;
+      const counters = activePart.querySelectorAll('[data-counter]');
+      if (!counters.length) return;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      counters.forEach(el => {
+        const target = parseInt(el.getAttribute('data-counter'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        if (prefersReduced) {
+          el.textContent = target + suffix;
+          return;
+        }
+        const duration = 1400;
+        const start = performance.now();
+        function tick(now) {
+          const t = Math.min(1, (now - start) / duration);
+          // ease-out cubic
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+
+    /* =====================================================================
+       PRESENTER NOTES WINDOW
+       Sync via localStorage events (bidirectional).
+       ===================================================================== */
+    const STORAGE_KEY = 'deck-state';
+    let presenterWin = null;
+
+    function syncToPresenter() {
+      const state = {
+        slide: currentSlide,
+        part:  currentPart,
+        total: totalSlides,
+        ts: Date.now()
+      };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
+    }
+
+    window.addEventListener('storage', (e) => {
+      if (e.key !== STORAGE_KEY || !e.newValue) return;
+      try {
+        const state = JSON.parse(e.newValue);
+        if (state.slide !== currentSlide || state.part !== currentPart) {
+          applySlide(state.slide, state.part);
+        }
+      } catch (_) {}
+    });
+
+    function slideTitle(idx) {
+      const s = slides[idx];
+      const h1 = s.querySelector('h1');
+      const h2 = s.querySelector('h2');
+      return (h1 ? h1.textContent : (h2 ? h2.textContent : 'Slide ' + (idx + 1))).trim();
+    }
+    function slideNotes(idx) {
+      return (slides[idx].getAttribute('data-notes') || '').trim();
+    }
+
+    function openPresenterNotes() {
+      if (presenterWin && !presenterWin.closed) {
+        presenterWin.focus();
+        return;
+      }
+      presenterWin = window.open('', 'PresenterNotes', 'width=900,height=720');
+      if (!presenterWin) return;
+
+      const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Presenter Notes — Dave Orian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      background: #0c0c10;
+      color: #fff;
+      padding: 28px 32px 32px;
+      min-height: 100vh;
+    }
+    .pn-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .pn-brand { font-family: 'Google Sans', sans-serif; font-weight: 500; font-size: 16px; color: #6366F1; letter-spacing: 0.01em; }
+    .pn-count { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+    .pn-current {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+    }
+    .pn-eyebrow { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6366F1; font-weight: 700; margin-bottom: 10px; }
+    .pn-title-current { font-family: 'Google Sans', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.18; color: #fff; }
+    .pn-part-label { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 8px; }
+    .pn-next {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+    }
+    .pn-title-next { font-family: 'Google Sans', sans-serif; font-weight: 500; font-size: 16px; color: rgba(255,255,255,0.78); line-height: 1.25; }
+    .pn-notes {
+      font-size: 16px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.01em;
+      max-width: 700px;
+    }
+    .pn-nav-hint {
+      margin-top: 28px; padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 12px; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+  <div class="pn-header">
+    <div class="pn-brand">Dave Orian — Presenter Notes</div>
+    <div class="pn-count" id="pnCount"></div>
+  </div>
+  <div class="pn-current">
+    <div class="pn-eyebrow">Current</div>
+    <div class="pn-title-current" id="pnCurrent"></div>
+    <div class="pn-part-label" id="pnPart"></div>
+  </div>
+  <div class="pn-next">
+    <div class="pn-eyebrow" style="color: rgba(255,255,255,0.4); margin-bottom: 6px;">Next</div>
+    <div class="pn-title-next" id="pnNext"></div>
+  </div>
+  <div class="pn-notes" id="pnNotes"></div>
+  <div class="pn-nav-hint">← → arrows to navigate from this window</div>
+
+  <script>
+    const STORAGE_KEY = 'deck-state';
+    function readState() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch (e) { return null; }
+    }
+    function writeState(state) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    }
+    function render(state, payload) {
+      if (!state || !payload) return;
+      const { slide, part, total } = state;
+      const cur = payload.slides[slide] || {};
+      const nxt = payload.slides[slide + 1];
+      document.getElementById('pnCount').textContent = 'Slide ' + (slide + 1) + ' of ' + total;
+      document.getElementById('pnCurrent').textContent = cur.title || ('Slide ' + (slide + 1));
+      document.getElementById('pnPart').textContent = cur.partCount > 1 ? ('Part ' + (part + 1) + ' of ' + cur.partCount) : '';
+      document.getElementById('pnNext').textContent = nxt ? nxt.title : '— End of deck —';
+      document.getElementById('pnNotes').textContent = cur.notes || '';
+    }
+    window.__deckPayload = null;
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'deck-payload') {
+        window.__deckPayload = e.data.payload;
+        render(readState(), window.__deckPayload);
+      }
+    });
+    window.addEventListener('storage', (e) => {
+      if (e.key === STORAGE_KEY) render(readState(), window.__deckPayload);
+    });
+    window.addEventListener('keydown', (e) => {
+      const state = readState();
+      if (!state || !window.__deckPayload) return;
+      const total = state.total;
+      const cur = window.__deckPayload.slides[state.slide];
+      let { slide, part } = state;
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        if (cur.partCount > 1 && part < cur.partCount - 1) { part++; }
+        else if (slide < total - 1) { slide++; part = 0; }
+        else { slide = 0; part = 0; }
+        writeState({ slide, part, total, ts: Date.now() });
+        render({ slide, part, total }, window.__deckPayload);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        if (part > 0) { part--; }
+        else if (slide > 0) {
+          slide--;
+          const prevCur = window.__deckPayload.slides[slide];
+          part = Math.max(0, (prevCur.partCount || 1) - 1);
+        }
+        writeState({ slide, part, total, ts: Date.now() });
+        render({ slide, part, total }, window.__deckPayload);
+      }
+    });
+    // Request payload from opener
+    if (window.opener) {
+      window.opener.postMessage({ type: 'deck-payload-request' }, '*');
+    }
+  </` + `script>
+</body>
+</html>`;
+      presenterWin.document.open();
+      presenterWin.document.write(html);
+      presenterWin.document.close();
+    }
+
+    function sendPayloadTo(win) {
+      const payload = {
+        slides: slides.map((s, i) => ({
+          title: slideTitle(i),
+          notes: slideNotes(i),
+          partCount: partCount(i) || 1
+        }))
+      };
+      try {
+        win.postMessage({ type: 'deck-payload', payload }, '*');
+      } catch (_) {}
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'deck-payload-request' && presenterWin && !presenterWin.closed) {
+        sendPayloadTo(presenterWin);
+        // also seed state so the window shows current position on open
+        syncToPresenter();
+      }
+    });
+
+    document.getElementById('presenterNotesBtn').addEventListener('click', () => {
+      moreMenu.classList.remove('open');
+      openPresenterNotes();
+    });
+
+    /* =====================================================================
+       INIT
+       ===================================================================== */
+    applySlide(0, 0);
+  </script>
+</body>
+</html>

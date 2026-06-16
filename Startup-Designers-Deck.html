@@ -877,6 +877,31 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* ====================================================================
+       CAPTURE MODE (?capture=true)
+       Disables every animation/transition so the slide renders in its
+       final state instantly — for deterministic Figma capture.
+       ==================================================================== */
+    .capture-mode *,
+    .capture-mode *::before,
+    .capture-mode *::after {
+      animation-duration: 0.001ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      transition-delay: 0s !important;
+    }
+    .capture-mode .stack-icon,
+    .capture-mode .milestone,
+    .capture-mode .theme-card { opacity: 1 !important; transform: none !important; }
+    .capture-mode .slide-part { transform: none !important; }
+    /* Hide deck chrome (header + footer + pips) during capture so each
+       captured frame is pure slide content — header/nav are stage chrome
+       that doesn't belong in a per-slide design artifact. */
+    .capture-mode .deck-header,
+    .capture-mode .deck-footer,
+    .capture-mode .part-pips { display: none !important; }
   </style>
 </head>
 <body>
@@ -1321,6 +1346,17 @@
     })();
 
     /* =====================================================================
+       URL PARAMS
+       ?theme=light|dark|system   override theme
+       ?slide=N                   jump to slide N (0-indexed)
+       ?part=M                    jump to part M (0-indexed)
+       ?capture=true              disable animations + hide chrome
+       ===================================================================== */
+    const URL_PARAMS = new URLSearchParams(window.location.search);
+    const CAPTURE_MODE = URL_PARAMS.get('capture') === 'true';
+    if (CAPTURE_MODE) document.documentElement.classList.add('capture-mode');
+
+    /* =====================================================================
        LUCIDE — instantiate icons after DOM ready.
        ===================================================================== */
     if (window.lucide && typeof lucide.createIcons === 'function') {
@@ -1494,9 +1530,14 @@
       if (root.getAttribute('data-theme-mode') === 'system') applyTheme('system');
     });
 
-    // Initial — dark by default, restore from storage if present
+    // Initial theme — URL param wins, then localStorage, then dark default.
+    const URL_THEME = URL_PARAMS.get('theme');
     let storedMode = 'dark';
-    try { storedMode = localStorage.getItem('deck-theme-mode') || 'dark'; } catch (_) {}
+    if (URL_THEME === 'light' || URL_THEME === 'dark' || URL_THEME === 'system') {
+      storedMode = URL_THEME;
+    } else {
+      try { storedMode = localStorage.getItem('deck-theme-mode') || 'dark'; } catch (_) {}
+    }
     applyTheme(storedMode);
 
     /* =====================================================================
@@ -1523,7 +1564,7 @@
       counters.forEach(el => {
         const target = parseInt(el.getAttribute('data-counter'), 10);
         const suffix = el.getAttribute('data-suffix') || '';
-        if (prefersReduced) {
+        if (prefersReduced || CAPTURE_MODE) {
           el.textContent = target + suffix;
           return;
         }
@@ -1754,9 +1795,11 @@
     });
 
     /* =====================================================================
-       INIT
+       INIT — honor ?slide= and ?part= URL params for deep-linking
        ===================================================================== */
-    applySlide(0, 0);
+    const URL_SLIDE = parseInt(URL_PARAMS.get('slide') || '0', 10);
+    const URL_PART  = parseInt(URL_PARAMS.get('part')  || '0', 10);
+    applySlide(isNaN(URL_SLIDE) ? 0 : URL_SLIDE, isNaN(URL_PART) ? 0 : URL_PART);
   </script>
 </body>
 </html>

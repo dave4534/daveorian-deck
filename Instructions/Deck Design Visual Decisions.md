@@ -40,6 +40,7 @@ All text is left aligned unless stated specifically.
 	- H3: 20px
 	- Body: 14px medium - line height 1.6em, letter spacing 0.015em
 		- Explainer text: Italics
+	- Eyebrow: The small indigo colored text, often used above H1 or H2 - must used the body font in all caps
 - **Source:** Google Fonts CDN
 
 ---
@@ -55,7 +56,7 @@ All text is left aligned unless stated specifically.
 
 ## Background
 
-- **Treatment:** Subtle grid pattern — barely visible, just enough to feel structured
+- **Treatment:** Subtle grid pattern — barely visible, just enough to feel structured. Should span the entire view-width and view-height of the web page.
 - **Implementation:** Pure CSS (no image asset)
 - **Function:** Also serves as a content alignment guide
 
@@ -67,17 +68,20 @@ All text is left aligned unless stated specifically.
 
 ---
 
-## Spacing
-
-- **Feel:** Balanced — comfortable margins, content-forward
-- **Column alignment:** Text columns anchor flush to their nearest edge (left text = left wall, right visual = right wall), with a gutter between
-
----
-
 ## Layout System
 
 Two named patterns. Each slide in the content MD will specify which to use.
 In both cases the content as a whole must be vertically centered. For example if the content is H3, body on the left side + image on the right, the container that contains both of them must be vertically centered.
+
+Left wall == The left most part of the slideshow container
+Right wall == The rightmost part of the container
+
+
+
+## Spacing
+
+- **Feel:** Balanced — comfortable margins, content-forward
+- **Column alignment:** Text columns anchor flush to their nearest edge (left text = left wall, right visual = right wall), with a gutter between
 
 ### Pattern A: `two-column`
 
@@ -85,6 +89,8 @@ In both cases the content as a whole must be vertically centered. For example if
 - Right column: visual (screenshot, UI mockup, video, GIF), right-edge anchored
 - Column ratio: determined per slide based on content
 - Columns may be swapped (visual left, text right) — indicated in content MD
+-  In two-column layouts the left content container must align with the top-left of the header bar 
+-  Right side content must align to the rightmost part of the header bar
 
 ### Pattern B: `context-driven`
 
@@ -124,28 +130,23 @@ If a slide in the content MD defines `Part 1`, `Part 2`, etc., follow that slide
 
 ## Slide Chrome
 
-### Floating Header (all slides)
+### Floating Header/Header Bar (all slides)
 
-- No background fill — floats above content
-- Content: "Dave Orian - Sr. Product Designer"
+No background fill — floats above content
+#### Left side of header bar
+- Content: "Dave Orian - Sr. Product Designer" (aligned left)
 - Text color: Indigo (same in both modes)
+#### Right side of header bar
+- Theme Toggle
+	- Position: Top-right corner, in the floating header
+	- Form: Three small icon buttons inside a pill — Sun / System / Moon
+	- Icons: Lucide
+	- Three-dot Menu
+		- Position: Top-right corner, to the right of the theme toggle pill
+		- Form: Vertical three-dot icon (**Library:** [Lucide](https://lucide.dev/)  `MoreVertical`), opens a fly-out menu on click
+		- Menu items: "Presenter Notes" (only item for now)
 
-### Footer (context-sensitive, all slides)
 
-- Ghost buttons with Lucide arrow icons (← →)
-- Behavior changes per slide position (see Navigation above)
-
-### Theme Toggle
-
-- Position: Top-right corner, in the floating header
-- Form: Three small icon buttons inside a pill — Sun / System / Moon
-- Icons: Lucide
-
-### Three-dot Menu
-
-- Position: Top-right corner, to the right of the theme toggle pill
-- Form: Vertical three-dot icon (Lucide `MoreVertical`), opens a fly-out menu on click
-- Menu items: "Presenter Notes" (only item for now)
 
 ### Presenter Notes Window
 
@@ -160,6 +161,12 @@ If a slide in the content MD defines `Part 1`, `Part 2`, etc., follow that slide
 - Sync mechanism: `localStorage` events (cross-window communication without a server)
 - Notes per slide: Specified in the content MD under `notes:` per slide
 
+
+### Footer (context-sensitive, all slides)
+
+- Ghost buttons with Lucide arrow icons (← →)
+- Behavior changes per slide position (see Navigation above)
+
 ### No additional chrome
 
 - No slide numbers
@@ -171,7 +178,6 @@ If a slide in the content MD defines `Part 1`, `Part 2`, etc., follow that slide
 ## Icons
 
 - **Library:** [Lucide](https://lucide.dev/) via CDN
-- **Usage:** Theme toggle (sun/moon/system), footer navigation arrows
 
 ---
 
@@ -184,7 +190,6 @@ If a slide in the content MD defines `Part 1`, `Part 2`, etc., follow that slide
 - Grid background implemented in CSS only
 - Slide visibility controlled via `.active` / `visibility` + `opacity` — never `display: none`
 - Google Sans + Manrope loaded via Google Fonts CDN
-- Lucide loaded via CDN
 - Presenter notes window uses `localStorage` for bidirectional cross-window sync
 - Content MD specifies notes per slide under `notes:` field
 - Layout pattern per slide specified in the content MD (`layout: two-column` or `layout: context-driven`)

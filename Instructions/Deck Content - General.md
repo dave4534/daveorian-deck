@@ -20,11 +20,11 @@ Body:
 Hi there, thanks for taking the time to meet with me!
 
 My daily tool-stack
-(display in a row icons for the following products. 50px x 50px square with 8px rounded corners, from `Slide Visuals/My Stack/`)
+(display in a row icons for the following products. 70px x 70px square with 8px rounded corners, from `Slide Visuals/My Stack/`)
 - Claude — `Slide Visuals/My Stack/Claude.svg`
 - Cursor — `Slide Visuals/My Stack/Cursor.svg`
 - Obsidian — `Slide Visuals/My Stack/Obsidian.svg`
-- NotebookLM — `Slide Visuals/My Stack/NotebookLM.svg`
+- NotebookLM — `Slide Visuals/My Stack/NotebookLM.svg`(colored white when in dark mode and dark gray when in light mode)
 - Figma — `Slide Visuals/My Stack/Figma.svg`
 (Create a cool slide-in animation where the logos slide in one after the other, from right to left over 800ms using ease-out timing and 0ms staggered delay )
 
@@ -45,7 +45,7 @@ Body: I discovered my passion for technology after founding a restaurant busines
 
 2018: (`Slide Visuals/Timeline Logos/Vonage logo.svg`) I owned the UX/UI design for the R&D of Vonage.
 
-2019: (`Slide Visuals/Timeline Logos/Fiverr.svg`) Color: 1DBF73. Led design for native mobile apps, marketplace dashboards, and buyer/seller tools.
+2019: (`Slide Visuals/Timeline Logos/Fiverr.svg`) color of SVG: 1DBF73. Led design for native mobile apps, marketplace dashboards, and buyer/seller tools.
 
 2022: (`Slide Visuals/Timeline Logos/SF.svg`) Led large-scale design efforts in Field Service including AI-Agent based Capacity Planning.
 
@@ -64,7 +64,7 @@ notes: Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut
 
 **Subhead:** How I helped Salesforce Field Service Planners see capacity gaps before they became emergencies.
 
-**Meta row:** Product Designer · Salesforce · 2025
+**Meta row:** Product Designer  ·  Salesforce  ·  2025
 
 **Visual:** Hero shot of the final Capacity Planning dashboard. (`Slide Visuals/Capacity Planing Dashboard.png`)
 

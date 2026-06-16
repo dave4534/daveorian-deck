@@ -90,14 +90,18 @@
     /* ====================================================================
        VIEWPORT + STAGE
        Fixed 1920×1080 stage, scaled uniformly to viewport.
+       The stage is positioned at viewport (0,0); the JS transform
+       handles all scaling AND centering — no flex on the viewport,
+       otherwise centering doubles up and pushes the stage off-screen.
        ==================================================================== */
     .deck-viewport {
       position: fixed; inset: 0;
-      display: flex; align-items: center; justify-content: center;
       background: var(--bg);
+      overflow: hidden;
     }
     .deck-stage {
-      position: relative;
+      position: absolute;
+      top: 0; left: 0;
       width: var(--stage-w);
       height: var(--stage-h);
       transform-origin: 0 0;

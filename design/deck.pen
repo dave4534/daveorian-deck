@@ -1,0 +1,640 @@
+{
+  "version": "2.13",
+  "themes": {
+    "mode": [
+      "dark",
+      "light"
+    ]
+  },
+  "variables": {
+    "accent": {
+      "type": "color",
+      "value": "#6366F1"
+    },
+    "bg": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#0c0c10",
+          "theme": "dark"
+        },
+        {
+          "value": "#fafaf7",
+          "theme": "light"
+        }
+      ]
+    },
+    "fg": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#ffffff",
+          "theme": "dark"
+        },
+        {
+          "value": "#000000",
+          "theme": "light"
+        }
+      ]
+    },
+    "text-h1-size": {
+      "type": "number",
+      "value": 36
+    },
+    "text-h2-size": {
+      "type": "number",
+      "value": 24
+    },
+    "text-h3-size": {
+      "type": "number",
+      "value": 20
+    },
+    "text-body-size": {
+      "type": "number",
+      "value": 16
+    },
+    "text-small-body-size": {
+      "type": "number",
+      "value": 14
+    },
+    "text-eyebrow-size": {
+      "type": "number",
+      "value": 14
+    },
+    "media-border": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#71717a",
+          "theme": "dark"
+        },
+        {
+          "value": "#a1a1aa",
+          "theme": "light"
+        }
+      ]
+    }
+  },
+  "children": [
+    {
+      "id": "frame-slide-01",
+      "type": "frame",
+      "name": "slide-01",
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-01",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-01 · Slide 1",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-01",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-01.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-02",
+      "type": "frame",
+      "name": "slide-02",
+      "x": 2000,
+      "y": 0,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-02",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-02 · Slide 2",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-02",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-02.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-03",
+      "type": "frame",
+      "name": "slide-03",
+      "x": 4000,
+      "y": 0,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-03",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-03 · Slide 3",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-03",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-03.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-04",
+      "type": "frame",
+      "name": "slide-04",
+      "x": 6000,
+      "y": 0,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-04",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-04 · Slide 4",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-04",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-04.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-05",
+      "type": "frame",
+      "name": "slide-05",
+      "x": 0,
+      "y": 1160,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-05",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-05 · Slide 5",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-05",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-05.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-06-part-01",
+      "type": "frame",
+      "name": "slide-06-part-01",
+      "x": 2000,
+      "y": 1160,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-06-part-01",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-06-part-01 · Slide 6 — Part 1",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-06-part-01",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-06-part-01.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-06-part-02",
+      "type": "frame",
+      "name": "slide-06-part-02",
+      "x": 4000,
+      "y": 1160,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-06-part-02",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-06-part-02 · Slide 6 — Part 2",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-06-part-02",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-06-part-02.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-06-part-03",
+      "type": "frame",
+      "name": "slide-06-part-03",
+      "x": 6000,
+      "y": 1160,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-06-part-03",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-06-part-03 · Slide 6 — Part 3",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-06-part-03",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-06-part-03.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-06-part-04",
+      "type": "frame",
+      "name": "slide-06-part-04",
+      "x": 0,
+      "y": 2320,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-06-part-04",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-06-part-04 · Slide 6 — Part 4",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-06-part-04",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-06-part-04.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-07-part-01",
+      "type": "frame",
+      "name": "slide-07-part-01",
+      "x": 2000,
+      "y": 2320,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-07-part-01",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-07-part-01 · Slide 7 — Part 1",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-07-part-01",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-07-part-01.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-07-part-02",
+      "type": "frame",
+      "name": "slide-07-part-02",
+      "x": 4000,
+      "y": 2320,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-07-part-02",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-07-part-02 · Slide 7 — Part 2",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-07-part-02",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-07-part-02.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-07-part-03",
+      "type": "frame",
+      "name": "slide-07-part-03",
+      "x": 6000,
+      "y": 2320,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-07-part-03",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-07-part-03 · Slide 7 — Part 3",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-07-part-03",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-07-part-03.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-07-part-04",
+      "type": "frame",
+      "name": "slide-07-part-04",
+      "x": 0,
+      "y": 3480,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-07-part-04",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-07-part-04 · Slide 7 — Part 4",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-07-part-04",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-07-part-04.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-08-part-01",
+      "type": "frame",
+      "name": "slide-08-part-01",
+      "x": 2000,
+      "y": 3480,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-08-part-01",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-08-part-01 · Slide 8 — Part 1",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-08-part-01",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-08-part-01.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-08-part-02",
+      "type": "frame",
+      "name": "slide-08-part-02",
+      "x": 4000,
+      "y": 3480,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-08-part-02",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-08-part-02 · Slide 8 — Part 2",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-08-part-02",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-08-part-02.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    },
+    {
+      "id": "frame-slide-09",
+      "type": "frame",
+      "name": "slide-09",
+      "x": 6000,
+      "y": 3480,
+      "width": 1920,
+      "height": 1080,
+      "clip": true,
+      "fill": "#0c0c10",
+      "children": [
+        {
+          "id": "label-slide-09",
+          "type": "text",
+          "name": "frame-label",
+          "x": 32,
+          "y": 32,
+          "content": "slide-09 · Slide 9",
+          "fontSize": 14,
+          "fill": "#6366F1",
+          "textGrowth": "auto"
+        },
+        {
+          "id": "guide-slide-09",
+          "type": "text",
+          "name": "reference-guide",
+          "x": 32,
+          "y": 64,
+          "content": "Drop design/reference/slide-09.png as locked guide layer",
+          "fontSize": 12,
+          "fill": "rgba(255,255,255,0.48)",
+          "textGrowth": "auto"
+        }
+      ]
+    }
+  ]
+}

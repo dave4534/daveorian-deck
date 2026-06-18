@@ -902,6 +902,24 @@
     .capture-mode .deck-header,
     .capture-mode .deck-footer,
     .capture-mode .part-pips { display: none !important; }
+    /* Render the stage at natural 1920×1080 with no transform so the
+       capture engine reads the slide at design resolution. */
+    .capture-mode html, .capture-mode body {
+      overflow: visible !important;
+      width: 1920px !important;
+      height: 1080px !important;
+    }
+    .capture-mode .deck-viewport {
+      position: static !important;
+      width: 1920px !important;
+      height: 1080px !important;
+    }
+    .capture-mode .deck-stage {
+      position: static !important;
+      transform: none !important;
+      width: 1920px !important;
+      height: 1080px !important;
+    }
   </style>
 </head>
 <body>
@@ -1354,7 +1372,17 @@
        ===================================================================== */
     const URL_PARAMS = new URLSearchParams(window.location.search);
     const CAPTURE_MODE = URL_PARAMS.get('capture') === 'true';
-    if (CAPTURE_MODE) document.documentElement.classList.add('capture-mode');
+    if (CAPTURE_MODE) {
+      document.documentElement.classList.add('capture-mode');
+      // Inject the Figma HTML-to-Design capture helper only when we're
+      // actively capturing — the helper acts on URL hash params from
+      // generate_figma_design and is a no-op otherwise, but we still keep
+      // it out of normal pageviews to avoid the external script load.
+      const s = document.createElement('script');
+      s.src = 'https://mcp.figma.com/mcp/html-to-design/capture.js';
+      s.async = true;
+      document.head.appendChild(s);
+    }
 
     /* =====================================================================
        LUCIDE — instantiate icons after DOM ready.

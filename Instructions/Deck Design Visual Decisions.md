@@ -29,19 +29,26 @@
 
 ---
 
-## Typography
+## Typography + Text
 
 All text is left aligned unless stated specifically.
 
 - **Headings:** Google Sans Semi-Bold — via [Google Fonts](https://fonts.google.com/specimen/Google+Sans)
 - **All other text:** Manrope — via Google Fonts
 	- H1: 32px
-	- H2: 24px
+	- H2: 26px
 	- H3: 20px
-	- Body: 14px medium - line height 1.6em, letter spacing 0.015em
+	- Body: 15px medium - line height 1.6em, letter spacing 0.015em
 		- Explainer text: Italics
 	- Eyebrow: The small indigo colored text, often used above H1 or H2 - must used the body font in all caps
+	- Small-body: 13px medium
 - **Source:** Google Fonts CDN
+
+
+
+##### Containers with multiple elements of text
+
+- Max width 400px
 
 ---
 
@@ -49,8 +56,21 @@ All text is left aligned unless stated specifically.
 
 - **Accent:** Indigo only — minimal, single-accent palette
 - **Dark mode text:** White
-- **Light mode text:** Very dark gray
+- **Light mode text:** Black
 - **No secondary accent color**
+
+___
+
+## Images, Videos + SVGs
+
+- If displayed in a container, display in container with 5% lighter color in dark mode, and 5% darker color for light mode
+- Avoid the BG of the container being transparent
+- Image should fill 100% of the container with padding of 24px on all 4 sides of image
+- Image should center vertically and horizontally within container
+- Border radius 8px
+- Border: 1px, gray in light mode and dark gray in dark mode
+- Images and videos containers should be 40% width 
+- For images that are on the right side of a two column view. And there is a container for the right column. The image should have a minimum width of 700px.
 
 ---
 
@@ -76,7 +96,25 @@ In both cases the content as a whole must be vertically centered. For example if
 Left wall == The left most part of the slideshow container
 Right wall == The rightmost part of the container
 
+## Responsiveness
+## Layout & responsiveness (required)
 
+**Do not** use a fixed 1920×1080 slide canvas with `transform: scale()` to fit the viewport.
+Ignore `Instructions/frontend-slides.md` fixed-stage rules for this project.
+
+Build the deck as a **normal responsive web app**:
+
+- Layout fills the viewport and reflows at breakpoints — no letterboxing/zooming of a slide stage.
+- Use fluid sizing: `max-width`, `%`, `fr`, `clamp()`, and CSS custom properties — not a single fixed design canvas.
+- Slide **navigation state** (slide index, multi-part states, URL params `?slide=&part=`, keyboard nav) is separate from layout — keep stateful deck behavior, but not fixed-stage scaling.
+- Author typography and spacing for a **content column** (e.g. `max-width: 1200–1400px`, centered), not for 1920×1080 coordinates.
+- Add breakpoints for dense slides (timeline, two-column, multi-part) so narrow viewports stack instead of shrinking uniformly.
+- When eyebrow is followed by H1 or H2 and then body, spacing between them should be 16px
+
+
+**Before calling the deck done, verify at:** desktop (1440px+), laptop (~1280px), and tablet (~768px) — layout should reflow, not scale.
+
+---
 
 ## Spacing
 
@@ -100,6 +138,12 @@ Right wall == The rightmost part of the container
 
 ---
 
+## Interactivity
+
+- Avoid progress bars for showing reveal steps within a slide
+
+___
+
 ## Animation
 
 - **Level:** Moderate — purposeful transitions and reveals
@@ -107,16 +151,6 @@ Right wall == The rightmost part of the container
 - **Element-level animation:** Decided collaboratively per slide when content is provided
 - **Reduced motion:** Must respect `prefers-reduced-motion`
 
----
-
-## Navigation
-
-- **Input:** Keyboard arrows + footer button clicks
-- **Footer — first slide:** Next (→) only
-- **Footer — middle slides:** Previous (←) and Next (→)
-- **Footer — last slide:** Previous (←) and Start Over
-- **Button style:** Ghost button — outline only, subtle border, AAA-compliant text
-- **Multi-part slides:** When Next is clicked on a slide that has `Part 1`, `Part 2`, etc., advance through parts first; only then go to the next slide
 
 ---
 
@@ -136,30 +170,9 @@ No background fill — floats above content
 #### Left side of header bar
 - Content: "Dave Orian - Sr. Product Designer" (aligned left)
 - Text color: Indigo (same in both modes)
-#### Right side of header bar
-- Theme Toggle
-	- Position: Top-right corner, in the floating header
-	- Form: Three small icon buttons inside a pill — Sun / System / Moon
-	- Icons: Lucide
-	- Three-dot Menu
-		- Position: Top-right corner, to the right of the theme toggle pill
-		- Form: Vertical three-dot icon (**Library:** [Lucide](https://lucide.dev/)  `MoreVertical`), opens a fly-out menu on click
-		- Menu items: "Presenter Notes" (only item for now)
+#### 
 
 
-
-### Presenter Notes Window
-
-- Triggered by: "Presenter Notes" in the three-dot menu
-- Opens via: `window.open()` — a separate detachable browser window (can be dragged to a second screen)
-- Layout mirrors Google Slides speaker view:
-    - Current slide preview (large)
-    - Next slide preview (smaller)
-    - Presenter notes for current slide (text, readable size)
-    - Current slide number / total
-- Sync: Bidirectional — navigating in either window updates the other
-- Sync mechanism: `localStorage` events (cross-window communication without a server)
-- Notes per slide: Specified in the content MD under `notes:` per slide
 
 
 ### Footer (context-sensitive, all slides)
@@ -183,8 +196,8 @@ No background fill — floats above content
 
 ## Technical Notes for Claude Code
 
-- Single self-contained HTML file, all CSS/JS inline
-- Fixed 1920×1080 stage, scaled uniformly to viewport (frontend-slides skill rules)
+- Responsive React/Vite app (or single self-contained HTML file for legacy decks)
+- Responsive flex/grid layout with CSS custom properties — no `transform: scale()` stage
 - CSS custom properties (`--` variables) for all theme values
 - Default theme: dark mode on load; System toggle reads `prefers-color-scheme` when selected
 - Grid background implemented in CSS only

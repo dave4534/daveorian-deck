@@ -14,7 +14,7 @@ notes: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod t
 - Header bar: aligned to the top left is "Dave Orian — Sr. Product Designer "
 
 Image: `Slide Visuals/dave.png`
-H1: Headline: Dave Orian — Case Study Presentation `[customize: Company / Role line per interview]`
+H3: H3: Dave Orian — Case Study Presentation `[customize: Company / Role line per interview]`
 H3: Capacity Planning
 Body:
 Hi there, thanks for taking the time to meet with me!
@@ -22,7 +22,7 @@ Hi there, thanks for taking the time to meet with me!
 My daily tool-stack
 (display in a row icons for the following products. 70px x 70px square with 8px rounded corners, from `Slide Visuals/My Stack/`)
 - Claude — `Slide Visuals/My Stack/Claude.svg`
-- Cursor — `Slide Visuals/My Stack/Cursor.svg`
+- Cursor — `Slide Visuals/My Stack/Cursor.svg` (colored white when in dark mode and dark gray when in light mode)
 - Obsidian — `Slide Visuals/My Stack/Obsidian.svg`
 - NotebookLM — `Slide Visuals/My Stack/NotebookLM.svg`(colored white when in dark mode and dark gray when in light mode)
 - Figma — `Slide Visuals/My Stack/Figma.svg`
@@ -36,7 +36,7 @@ My daily tool-stack
 
 notes: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim.
 
-Headline: A bit about me
+H3: A bit about me
 Body: I discovered my passion for technology after founding a restaurant business with my brother in Oregon. I flew to India to try and assemble a team (and to grow a huge mustache) and realized that I need to join the best of the best at Shenkar.
 
 (show an interactive horizontal timeline showing the following milestones.)
@@ -60,7 +60,7 @@ Body: I discovered my passion for technology after founding a restaurant busines
 
 notes: Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu.
 
-**Headline:** Leading the design for an AI-agent based workforce planning system
+**H3:** Leading the design for an AI-agent based workforce planning system
 
 **Subhead:** How I helped Salesforce Field Service Planners see capacity gaps before they became emergencies.
 
@@ -76,7 +76,7 @@ notes: Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut
 
 notes: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.
 
-**Headline:** What's a Planner?
+**H3:** What's a Planner?
 (`Slide Visuals/Sam.png`) Meet Sam, the Planner. 
 
 Salesforce Field Service powers enterprise companies including telecom crews and HVAC fleets with tools for their end-to-end operations.
@@ -92,7 +92,7 @@ Within large organizations, Operations Planners are responsible for making sure 
 
 notes: Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est qui dolorem ipsum.
 
-Headline: A feature that evolved into a Suite
+H3: A feature that evolved into a Suite
 Body: 
 - I owned the design for **Capacity Limits** at Salesforce Field Service
 - The feature was showcased across the company and prioritized to evolve into a more holistic **Planning Suite**.
@@ -107,7 +107,7 @@ Explainer text: The Capacity Limits dashboard was Sam's first real signal. It pr
 
 notes: At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident similique sunt.
 
-**Headline:** My approach to understanding the Planner
+**H3:** My approach to understanding the Planner
 
 Part 1 
 
@@ -157,11 +157,11 @@ After synthesizing the data, I found the layered themes from each pointing to a 
 
 notes: Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus omnis.
 
-**Headline:** An AI agent-based approach to capacity gap detection and resolution
+**H3:** An AI agent-based approach to capacity gap detection and resolution
 
 **Body:** I concluded that Sam should be able to land, understand her situation, and take action without friction. I designed An AI Gap Resolution Agent that can be entrusted to handle gap resolutions.
 
-(look in `Slide Visuals/AI Flow/` and the images `AI - 1.png` through `AI - 4.png` — advance one image at a time while keeping the headline and body visible. When the third image appears, replace the body text with:)
+(look in `Slide Visuals/AI Flow/` and the images `AI - 1.png` through `AI - 4.png` — advance one image at a time while keeping the H3 and body visible. When the third image appears, replace the body text with:)
 
 Body: Because AI patterns hadnt been established at Salesforce, I used the design system and emerging market patterns and best practices to design AI patterns for an exceptional user experience.
 
@@ -171,7 +171,7 @@ Body: Because AI patterns hadnt been established at Salesforce, I used the desig
 
 notes: Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae itaque earum rerum hic tenetur a sapiente delectus ut.
 
-**Headline:** I worked hand in hand with the Product, Design and Development teams in a continuous iteration cycle
+**H3:** I worked hand in hand with the Product, Design and Development teams in a continuous iteration cycle
 
 Part 1
 

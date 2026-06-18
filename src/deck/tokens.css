@@ -1,0 +1,90 @@
+/* ====================================================================
+   DESIGN TOKENS — sync with design/deck.pen variables
+   See Instructions/pencil-workflow.md
+   ==================================================================== */
+:root {
+  --accent: #6366F1;
+  --accent-strong: #4F46E5;
+  --accent-soft: rgba(99, 102, 241, 0.14);
+  --accent-line: rgba(99, 102, 241, 0.30);
+
+  --green-fiverr: #1DBF73;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+
+  --font-heading: 'Google Sans', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body:    'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Responsive layout */
+  --deck-max-width: 1400px;
+  --deck-pad-x: clamp(1.25rem, 4vw, 5rem);
+  --deck-pad-y: clamp(1rem, 3vw, 2.5rem);
+  --deck-slide-pad-top: clamp(1rem, 3vw, 6rem);
+  --deck-slide-pad-bottom: clamp(1.25rem, 3vw, 5rem);
+
+  /*
+   * TYPOGRAPHY SCALE — edit sizes here; deck.css maps tokens → elements.
+   *
+   * Element / class              Token                         Where it appears
+   * ---------------------------  ----------------------------  ---------------------------------
+   * h1                           --text-h1-size                Slide titles, hero headlines
+   * h2                           --text-h2-size                Section headlines, thank-you slide
+   * h3                           --text-h3-size                Card titles, timeline job titles
+   * .body, .explainer, li        --text-body-size              Paragraphs, bullets, italic notes
+   * .small-body                  --text-small-body-size        Captions, timeline descriptions
+   * .eyebrow                     --text-eyebrow-size           Uppercase accent labels
+   * h1.stat-num                  --text-stat-row-num-size      Slide 6 percentage counters
+   * .persist-headline h1/h2      --text-persist-headline-size  Multi-part slide headlines (6–8)
+   * .brand                       --text-brand-size             Fixed header brand line
+   */
+  --text-h1-size: 36px;
+  --text-h2-size: 32px;
+  --text-h3-size: 20px;
+  --text-body-size: 16px;
+  --text-small-body-size: 14px;
+  --text-eyebrow-size: 14px;
+  --text-stat-row-num-size: 32px;
+  --text-persist-headline-size: 26px;
+  --text-brand-size: 18px;
+  --text-two-col-gap: clamp(2rem, 5vw, 5.5rem);
+  --text-text-col-gap: 22px;
+}
+
+[data-theme="dark"] {
+  --bg:           #0c0c10;
+  --bg-elev:      #14141c;
+  --fg:           #ffffff;
+  --fg-soft:      rgba(255, 255, 255, 0.72);
+  --fg-faint:     rgba(255, 255, 255, 0.48);
+  --icon-surface: color-mix(in srgb, var(--bg) 95%, black);
+  --card:         rgba(255, 255, 255, 0.045);
+  --card-strong:  rgba(255, 255, 255, 0.075);
+  --card-border:  rgba(255, 255, 255, 0.10);
+  --ghost-border: rgba(255, 255, 255, 0.20);
+  --ghost-hover:  rgba(255, 255, 255, 0.07);
+  --grid-line:    rgba(255, 255, 255, 0.038);
+  --media-border: #71717a;
+  --shadow-lg:    0 30px 80px rgba(0, 0, 0, 0.55);
+  --shadow-media: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --stat-icon-color: #ffffff;
+}
+
+[data-theme="light"] {
+  --bg:           #fafaf7;
+  --bg-elev:      #ffffff;
+  --fg:           #18181b;
+  --fg-soft:      rgba(24, 24, 27, 0.74);
+  --fg-faint:     rgba(24, 24, 27, 0.48);
+  --icon-surface: color-mix(in srgb, var(--bg) 95%, black);
+  --card:         rgba(24, 24, 27, 0.035);
+  --card-strong:  rgba(24, 24, 27, 0.06);
+  --card-border:  rgba(24, 24, 27, 0.10);
+  --ghost-border: rgba(24, 24, 27, 0.18);
+  --ghost-hover:  rgba(24, 24, 27, 0.045);
+  --grid-line:    rgba(24, 24, 27, 0.0475);
+  --media-border: #a1a1aa;
+  --shadow-lg:    0 24px 60px rgba(24, 24, 27, 0.12);
+  --shadow-media: 0 4px 16px rgba(24, 24, 27, 0.08);
+  --stat-icon-color: #52525b;
+}

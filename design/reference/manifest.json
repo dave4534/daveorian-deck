@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-06-17T17:21:47.843Z",
+  "port": 4173,
+  "theme": "dark",
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "frames": [
+    {
+      "frameName": "slide-01",
+      "fileName": "slide-01.png",
+      "label": "Slide 1",
+      "slide": 0,
+      "part": 0,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=0&part=0"
+    },
+    {
+      "frameName": "slide-02",
+      "fileName": "slide-02.png",
+      "label": "Slide 2",
+      "slide": 1,
+      "part": 0,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=1&part=0"
+    },
+    {
+      "frameName": "slide-03",
+      "fileName": "slide-03.png",
+      "label": "Slide 3",
+      "slide": 2,
+      "part": 0,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=2&part=0"
+    },
+    {
+      "frameName": "slide-04",
+      "fileName": "slide-04.png",
+      "label": "Slide 4",
+      "slide": 3,
+      "part": 0,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=3&part=0"
+    },
+    {
+      "frameName": "slide-05",
+      "fileName": "slide-05.png",
+      "label": "Slide 5",
+      "slide": 4,
+      "part": 0,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=4&part=0"
+    },
+    {
+      "frameName": "slide-06-part-01",
+      "fileName": "slide-06-part-01.png",
+      "label": "Slide 6 — Part 1",
+      "slide": 5,
+      "part": 0,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=5&part=0"
+    },
+    {
+      "frameName": "slide-06-part-02",
+      "fileName": "slide-06-part-02.png",
+      "label": "Slide 6 — Part 2",
+      "slide": 5,
+      "part": 1,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=5&part=1"
+    },
+    {
+      "frameName": "slide-06-part-03",
+      "fileName": "slide-06-part-03.png",
+      "label": "Slide 6 — Part 3",
+      "slide": 5,
+      "part": 2,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=5&part=2"
+    },
+    {
+      "frameName": "slide-06-part-04",
+      "fileName": "slide-06-part-04.png",
+      "label": "Slide 6 — Part 4",
+      "slide": 5,
+      "part": 3,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=5&part=3"
+    },
+    {
+      "frameName": "slide-07-part-01",
+      "fileName": "slide-07-part-01.png",
+      "label": "Slide 7 — Part 1",
+      "slide": 6,
+      "part": 0,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=6&part=0"
+    },
+    {
+      "frameName": "slide-07-part-02",
+      "fileName": "slide-07-part-02.png",
+      "label": "Slide 7 — Part 2",
+      "slide": 6,
+      "part": 1,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=6&part=1"
+    },
+    {
+      "frameName": "slide-07-part-03",
+      "fileName": "slide-07-part-03.png",
+      "label": "Slide 7 — Part 3",
+      "slide": 6,
+      "part": 2,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=6&part=2"
+    },
+    {
+      "frameName": "slide-07-part-04",
+      "fileName": "slide-07-part-04.png",
+      "label": "Slide 7 — Part 4",
+      "slide": 6,
+      "part": 3,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=6&part=3"
+    },
+    {
+      "frameName": "slide-08-part-01",
+      "fileName": "slide-08-part-01.png",
+      "label": "Slide 8 — Part 1",
+      "slide": 7,
+      "part": 0,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=7&part=0"
+    },
+    {
+      "frameName": "slide-08-part-02",
+      "fileName": "slide-08-part-02.png",
+      "label": "Slide 8 — Part 2",
+      "slide": 7,
+      "part": 1,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=7&part=1"
+    },
+    {
+      "frameName": "slide-09",
+      "fileName": "slide-09.png",
+      "label": "Slide 9",
+      "slide": 8,
+      "part": 0,
+      "url": "http://localhost:4173/?capture=true&theme=dark&slide=8&part=0"
+    }
+  ]
+}

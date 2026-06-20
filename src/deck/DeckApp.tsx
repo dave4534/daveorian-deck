@@ -24,17 +24,29 @@ export function DeckApp() {
       const target = e.target as HTMLElement | null;
       if (target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA') return;
 
+      const isNavKey =
+        e.key === 'ArrowRight' ||
+        e.key === 'ArrowLeft' ||
+        e.key === 'PageDown' ||
+        e.key === 'PageUp' ||
+        e.key === ' ' ||
+        e.key === 'Home' ||
+        e.key === 'End';
+
+      if (!isNavKey) return;
+
+      e.preventDefault();
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+
       if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
-        e.preventDefault();
         nav.next();
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-        e.preventDefault();
         nav.prev();
       } else if (e.key === 'Home') {
-        e.preventDefault();
         nav.goHome();
       } else if (e.key === 'End') {
-        e.preventDefault();
         nav.goEnd();
       }
     };

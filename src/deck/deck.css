@@ -268,6 +268,13 @@ a { color: inherit; }
   background: var(--ghost-hover);
   border-color: var(--fg-soft);
 }
+.nav-btn:focus,
+.nav-btn:focus-visible {
+  outline: none;
+  background: transparent;
+  border-color: var(--ghost-border);
+  color: var(--fg);
+}
 .nav-btn svg { width: 16px; height: 16px; }
 .nav-btn.hidden { display: none; }
 .nav-btn .lucide-rotate-ccw { transform: scaleX(-1); } /* unused, just safety */
@@ -567,7 +574,7 @@ a { color: inherit; }
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid var(--card-border);
-  box-shadow: var(--shadow-lg);
+  box-shadow: none;
   flex-shrink: 0;
 }
 .slide-1 .portrait img {
@@ -1783,6 +1790,10 @@ a { color: inherit; }
   display: block;
   border-radius: 8px;
   border: 1px solid var(--media-frame-border);
+}
+[data-theme="dark"] .slide-8 .solution-visual img,
+[data-theme="dark"] .slide-9 .solution-visual img {
+  border-color: #444444;
 }
 
 /* Takeaways (slide 10) */

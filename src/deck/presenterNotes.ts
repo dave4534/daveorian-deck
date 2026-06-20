@@ -103,6 +103,13 @@ export function openPresenterNotes(): void {
       background: rgba(24, 24, 27, 0.045);
       border-color: rgba(24, 24, 27, 0.28);
     }
+    .pn-nav-btn:focus,
+    .pn-nav-btn:focus-visible {
+      outline: none;
+      background: #ffffff;
+      border-color: rgba(24, 24, 27, 0.18);
+      color: #18181b;
+    }
     .pn-nav-btn.hidden { display: none; }
     .pn-nav-hint {
       margin-bottom: 12px;

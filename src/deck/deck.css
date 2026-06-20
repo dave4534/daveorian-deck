@@ -15,8 +15,10 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-html:has(.deck-viewport .slide.active .visual-frame:not(.visual-frame--flush)),
-body:has(.deck-viewport .slide.active .visual-frame:not(.visual-frame--flush)) {
+html:has(.deck-viewport .slide.active:not(.multi-part) .visual-frame:not(.visual-frame--flush)),
+html:has(.deck-viewport .slide.active.multi-part .slide-part.active .visual-frame:not(.visual-frame--flush)),
+body:has(.deck-viewport .slide.active:not(.multi-part) .visual-frame:not(.visual-frame--flush)),
+body:has(.deck-viewport .slide.active.multi-part .slide-part.active .visual-frame:not(.visual-frame--flush)) {
   overflow-x: visible;
 }
 img, svg, video { display: block; max-width: 100%; }
@@ -65,11 +67,13 @@ a { color: inherit; }
   --fg-soft: var(--slide-fg);
   --fg-faint: var(--slide-fg);
 }
-.deck-main:has(.slide.active .visual-frame:not(.visual-frame--flush)) {
+.deck-main:has(.slide.active:not(.multi-part) .visual-frame:not(.visual-frame--flush)),
+.deck-main:has(.slide.active.multi-part .slide-part.active .visual-frame:not(.visual-frame--flush)) {
   overflow: visible;
 }
 
-.deck-viewport:has(.slide.active .visual-frame:not(.visual-frame--flush)) {
+.deck-viewport:has(.slide.active:not(.multi-part) .visual-frame:not(.visual-frame--flush)),
+.deck-viewport:has(.slide.active.multi-part .slide-part.active .visual-frame:not(.visual-frame--flush)) {
   overflow: visible;
 }
 
@@ -307,7 +311,8 @@ a { color: inherit; }
   overflow-y: hidden;
   transition: opacity 800ms var(--ease-in-out), visibility 0s linear 800ms;
 }
-.slide:has(.visual-frame:not(.visual-frame--flush)) {
+.slide.active:not(.multi-part):has(.visual-frame:not(.visual-frame--flush)),
+.slide.active.multi-part:has(.slide-part.active .visual-frame:not(.visual-frame--flush)) {
   overflow: visible;
 }
 .slide.active {
@@ -1002,6 +1007,56 @@ a { color: inherit; }
   margin: 4px 0 0;
   letter-spacing: 0.14em;
 }
+
+/* Part 3 — theme card grid: fit viewport without scroll or bottom clip */
+.slide-5.multi-part:has(> .part-region > .slide-part:nth-child(3).active) {
+  gap: 4px;
+}
+.slide-5.multi-part:has(> .part-region > .slide-part:nth-child(3).active) .persist-headline {
+  margin-bottom: 0;
+}
+.slide-5 .part-region > .slide-part:nth-child(3).active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+.slide-5 .part-region > .slide-part:nth-child(3) .themes-block {
+  width: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.slide-5 .part-region > .slide-part:nth-child(3) .themes-block > h2 {
+  margin-bottom: 24px;
+}
+.slide-5 .part-region > .slide-part:nth-child(3) .themes-row + .themes-section-label {
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+.slide-5 .part-region > .slide-part:nth-child(3) .themes-row {
+  gap: 20px;
+}
+.slide-5 .part-region > .slide-part:nth-child(3) .theme-card {
+  padding: 20px;
+  gap: 10px;
+}
+.slide-5 .part-region > .slide-part:nth-child(3) .theme-card .body {
+  line-height: 1.5;
+}
+@media (max-height: 920px) {
+  .slide-5 .part-region > .slide-part:nth-child(3) .themes-matrix {
+    zoom: 0.92;
+  }
+}
+@media (max-height: 820px) {
+  .slide-5 .part-region > .slide-part:nth-child(3) .themes-matrix {
+    zoom: 0.84;
+  }
+}
+
 .theme-card {
   display: flex;
   flex-direction: column;

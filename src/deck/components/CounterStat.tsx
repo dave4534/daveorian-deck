@@ -5,16 +5,26 @@ type CounterStatProps = {
   suffix?: string;
   active: boolean;
   captureMode?: boolean;
+  className?: string;
+  as?: 'h1' | 'h3' | 'p';
 };
 
-export function CounterStat({ target, suffix = '', active, captureMode = false }: CounterStatProps) {
+export function CounterStat({
+  target,
+  suffix = '',
+  active,
+  captureMode = false,
+  className = 'stat-num',
+  as: Tag = 'p',
+}: CounterStatProps) {
   const [display, setDisplay] = useState(`0${suffix}`);
 
   useEffect(() => {
     if (!active) {
-      setDisplay(`0${suffix}`);
       return;
     }
+
+    setDisplay(`0${suffix}`);
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced || captureMode) {
@@ -35,5 +45,5 @@ export function CounterStat({ target, suffix = '', active, captureMode = false }
     requestAnimationFrame(tick);
   }, [active, target, suffix, captureMode]);
 
-  return <h1 className="stat-num">{display}</h1>;
+  return <Tag className={className}>{display}</Tag>;
 }

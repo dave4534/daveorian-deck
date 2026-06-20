@@ -35,20 +35,34 @@ All text is left aligned unless stated specifically.
 
 - **Headings:** Google Sans Semi-Bold — via [Google Fonts](https://fonts.google.com/specimen/Google+Sans)
 - **All other text:** Manrope — via Google Fonts
+	- Stat: 42px
 	- H1: 32px
 	- H2: 26px
 	- H3: 20px
 	- Body: 15px medium - line height 1.6em, letter spacing 0.015em
 		- Explainer text: Italics
 	- Eyebrow: The small indigo colored text, often used above H1 or H2 - must used the body font in all caps
-	- Small-body: 13px medium
+	- Small-body: 14px medium
+	- Bullet points: When body text is in a bullet format, please use indigo colored bullets, the bullets should be 4px x 4px. The bullet should be vertically center to the first line of text within the respective text body.
+
 - **Source:** Google Fonts CDN
 
-
+### Vertical spacing after (below) text elements
+- Eyebrow: 16px space below
+- H1, H2, H3: 20px space below
+- If Body is followed by another Body text: 12px between them
 
 ##### Containers with multiple elements of text
 
 - Max width 400px
+
+
+___
+
+## Borders
+
+- Borders in white mode should be 10% transparent black
+- Borders in dark mode should be 10% transparent white
 
 ---
 
@@ -58,6 +72,8 @@ All text is left aligned unless stated specifically.
 - **Dark mode text:** White
 - **Light mode text:** Black
 - **No secondary accent color**
+- Surface color
+	- Surface 1: White with 5% transparency for dark mode, black with 5% transparency for light mode
 
 ___
 
@@ -65,12 +81,41 @@ ___
 
 - If displayed in a container, display in container with 5% lighter color in dark mode, and 5% darker color for light mode
 - Avoid the BG of the container being transparent
+- Overflow:hidden
+- Padding: None
 - Image should fill 100% of the container with padding of 24px on all 4 sides of image
 - Image should center vertically and horizontally within container
 - Border radius 8px
-- Border: 1px, gray in light mode and dark gray in dark mode
+- Border: none
 - Images and videos containers should be 40% width 
-- For images that are on the right side of a two column view. And there is a container for the right column. The image should have a minimum width of 700px.
+- For images that are on the right side of a two column view. And there is a container for the right column. The image should have a minimum width of 800px.
+- Images and videos with "Drop Shadow" must include a subtle dropshadow of 5% black for light mode, and 5% white for dark mode. If the image is within a container, that container must have overflow: zero to allow the dropshadow to be seen completely 
+- Icons
+	- **Library:** [Lucide](https://lucide.dev/) via CDN
+	- Icons in "Tools used" should be 20px
+	- Cursor, NotebookLM icons should be dark gray when in light mode, and white in dark mode
+
+
+___
+## "Tools used" pills
+
+#### Structure
+- Icon (16px)
+- Body text 
+- Container with 8px padding
+	- 8px border radius
+	- 1px border, 10% white for dark mode, 10% black for white mode
+
+Icons can be found in `Slide Visuals/My Stack/`
+
+#### Mapping of Icons to text
+- NotebookLM icon <> "NotebookLM"
+- Cursor Icon <> "Cursor"
+- Gemini Icon <> "Gemini"
+- Figma Icon <> "Figma MCP"
+- Obsidian Icon <> "Obsidian"
+- 
+
 
 ---
 
@@ -170,8 +215,6 @@ No background fill — floats above content
 #### Left side of header bar
 - Content: "Dave Orian - Sr. Product Designer" (aligned left)
 - Text color: Indigo (same in both modes)
-#### 
-
 
 
 
@@ -186,11 +229,6 @@ No background fill — floats above content
 - No progress bar
 - No logo lockup beyond the header text
 
----
-
-## Icons
-
-- **Library:** [Lucide](https://lucide.dev/) via CDN
 
 ---
 

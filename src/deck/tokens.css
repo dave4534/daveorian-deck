@@ -12,6 +12,7 @@
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+  --negotiation-transition-ms: 800ms;
 
   --font-heading: 'Google Sans', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-body:    'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -37,18 +38,30 @@
    * h1.stat-num                  --text-stat-row-num-size      Slide 6 percentage counters
    * .persist-headline h1/h2      --text-persist-headline-size  Multi-part slide headlines (6–8)
    * .brand                       --text-brand-size             Fixed header brand line
+   * .lead                        --text-lead-*                 Slide 1 intro tagline (italic)
    */
-  --text-h1-size: 36px;
-  --text-h2-size: 32px;
+  --text-h1-size: 32px;
+  --text-h2-size: 26px;
   --text-h3-size: 20px;
-  --text-body-size: 16px;
+  --text-body-size: 15px;
   --text-small-body-size: 14px;
   --text-eyebrow-size: 14px;
+  --text-stat-size: 42px;
   --text-stat-row-num-size: 32px;
   --text-persist-headline-size: 26px;
   --text-brand-size: 18px;
+  --text-lead-size: 17px;
+  --text-lead-weight: 400;
+  --text-lead-line-height: 1.6;
+  --text-lead-letter-spacing: 0.01em;
   --text-two-col-gap: clamp(2rem, 5vw, 5.5rem);
-  --text-text-col-gap: 22px;
+  --text-text-col-gap: 16px;
+  --media-radius: 8px;
+  --media-col-min: 800px;
+  --media-col-standard: 700px;
+  --media-col-slide-2: 600px;
+  --media-col-slide-4: 650px;
+  --media-frame-border: #D7D7D7;
 }
 
 [data-theme="dark"] {
@@ -66,8 +79,10 @@
   --grid-line:    rgba(255, 255, 255, 0.038);
   --media-border: #71717a;
   --shadow-lg:    0 30px 80px rgba(0, 0, 0, 0.55);
+  --shadow-bleed: 96px; /* room for --shadow-lg blur (80px) + offset inside clip containers */
   --shadow-media: 0 4px 20px rgba(0, 0, 0, 0.35);
   --stat-icon-color: #ffffff;
+  --surface-1: rgba(255, 255, 255, 0.05);
 }
 
 [data-theme="light"] {
@@ -85,6 +100,8 @@
   --grid-line:    rgba(24, 24, 27, 0.0475);
   --media-border: #a1a1aa;
   --shadow-lg:    0 24px 60px rgba(24, 24, 27, 0.12);
+  --shadow-bleed: 72px;
   --shadow-media: 0 4px 16px rgba(24, 24, 27, 0.08);
   --stat-icon-color: #52525b;
+  --surface-1: rgba(0, 0, 0, 0.05);
 }

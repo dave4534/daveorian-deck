@@ -32,7 +32,8 @@ export function DeckHeader({ themeMode, onThemeChange, onGoHome }: ThemeProps) {
   return (
     <header className="deck-header">
       <button type="button" className="brand" onClick={onGoHome} aria-label="Back to first slide">
-        Dave Orian — Sr. Product Designer
+        <img className="brand-avatar" src="/Slide Visuals/dave.png" alt="" aria-hidden="true" />
+        <span>Dave Orian — Sr. Product Designer</span>
       </button>
       <div className="header-controls">
         <div className="theme-toggle" role="group" aria-label="Theme">

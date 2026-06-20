@@ -12,3 +12,5 @@ design/reference/*.png
 .claude/
 .cursor/
 .vercel
+.figma-probe/
+tsconfig.tsbuildinfo

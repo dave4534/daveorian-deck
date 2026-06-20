@@ -75,7 +75,7 @@ Eyebrow: Capacity Planning
 
 **Subhead:** How I helped Salesforce Field Service Planners see capacity gaps before they became emergencies.
 
-Key:Value Set (Key:Value == Bold body text for Key, Small body text for Value, separated by 8px. Key:Value pairs should be separated by 32px)
+Key:Value Set (Key:Value == Bold body text for Key, Small body text for Value, separated by 4px. Key:Value pairs should be separated by 24px)
 
 Key: Company
 Value: Salesforce
@@ -94,11 +94,11 @@ Value: Product Designer
 notes: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.
 
 Eyebrow: The User
-**H3:** What's a Planner?
+**H1:** What's a Planner?
 Meet Sam, the Planner. 
 
 Visual: (`Slide Visuals/Sam.png`) 
-240px image. The image is centered vertically to the view, and the images in `technicians/` are displayed in a circular shape around sam.png and are slightly floating (animated) at slightly different timing. Each of the images in technicians/ is 24px x 24px
+300px image. The image is centered vertically to the view, and the images in `technicians/` are displayed in a circular shape around sam.png and are slightly floating (animated) at slightly different timing. Each of the images in technicians/ is 48px x 48px
 
 Salesforce Field Service powers enterprise companies including telecom crews and HVAC fleets with tools for their end-to-end operations.
 Within large organizations, Operations Planners are responsible for making sure there are enough people to do the work in 1-3 months. 
@@ -113,7 +113,7 @@ Within large organizations, Operations Planners are responsible for making sure 
 
 notes: Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est qui dolorem ipsum.
 
-H3: A feature that evolved into a Suite
+H1: A feature that evolved into a Suite
 Body: 
 - I owned the design for **Capacity Limits** at Salesforce Field Service
 - The feature was showcased across the company and prioritized to evolve into a more holistic **Planning Suite**.
@@ -127,19 +127,21 @@ Visual: Video of the Capacity  https://portfolio-vids.b-cdn.net/Capacity%20Limit
 
 notes: At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident similique sunt.
 
-**H3:** My approach to understanding the Planner
+**Eyebrow:** Understanding the Planner
 
 Part 1 
 
 
-H3: We wanted to know: How did Planners resolve gaps today?
-Body: First I gathered existing research within the UX research organization as well as research done by an external third party and fed over 20 documents into a notebook LM.
+H2: We wanted to know: How did Planners resolve gaps today?
+- Body: First I gathered existing research within the UX research organization as well as research done by an external third party and fed over 20 documents into a notebook LM.
+- Body: I gathered domain experts and users into an affinity mapping workshop to understand how planners in specific industries were experiencing pains with planning.
 
-H3: I gathered domain experts and users into an affinity mapping workshop to understand how planners in specific industries were experiencing pains with planning.
+Tools used:
+- NotebookLM
 
 
 Visual: (`Slide Visuals/Affinity Mapping.png`)
-24px beneath the visual: Icon and text in container: (`Slide Visuals/My Stack/NotebookLM.svg`) text: NotebookLM
+
 
 
 
@@ -151,24 +153,28 @@ Body: I extracted user stories as well as a flowchart using Claude, and the Figm
 - Reactive: Hiring, Up-Skilling, Capacity Limits
 - Reactive: Rescheduling, Reallocation, Cross-Skilling
 
-Tools used: two containers in a row, separated by 16px
-- (`Slide Visuals/My Stack/Claude.svg`)+ Claude in 32px container
-- (`Slide Visuals/My Stack/Figma.svg`)+ Figma in 32px container
+Tools used: two containers in a row, separated by 12px
+- (`Slide Visuals/My Stack/Claude.svg`)+ "Claude" in 24px container
+- (`Slide Visuals/My Stack/Figma.svg`)+ "Figma MCP" in 24px container
 
 Visual: (`Slide Visuals/Capacity Flowchart.png`)
 
 
 Part 3
 
-subheader:
-After synthesizing the data, I found the layered themes from each pointing to a design approach.
+H2: After synthesizing the data, I found the layered themes from each pointing to a design approach.
 
-(Build as a native two-row card grid — no image asset. Stagger card reveals ease out 700ms.)
+(Build as a native two-row card grid — no image asset. Stagger card reveals ease out 700ms.) The grid should be spaced by 48px between each row and between each column.
 
 Card structure: 
 - Icon
 - Title (Bold body)
 - Body
+- 24px padding for the whole card
+
+Spacing:
+- Space of 32px between card row 1 and Eyebrow below it
+- Space of 24px between cards
 
 **Section: What Planners face**
 - **Power outages during storms** — Mutual aid agreements between utilities share resources but spike demand.
@@ -203,17 +209,21 @@ Build a centered horizontal layout with three sections:
 
 1. **Left side:**
     - Avatar-Planner.png (100x100)
-    - Technicians-Left.png (48px height) positioned to the left of the avatar
+    - Technicians-Left.png (48px height) positioned to the left of the avatar with 32px spacing between Avatar Planning.png and Technicians Left.png. 
 2. **Center:**
     - Card containing the feature concept (Autonomous negotiation with description)
 3. **Right side:**
     - Avatar-Sam.png (100x100)
-    - Technicians-Right.png (48px height) positioned to the right of the avatar
+    - Technicians-Right.png (48px height) positioned to the right of the avatar with 32px spacing between sam.png and Technicians Right.png. 
 4. **Animated dashed lines:**
+    - Animated lines share the same container with with Autonomous Negotiation card (container named Card + Animated Lines).
+    - Card + Animated Lines must be vertically centered to the slide container
     - Line from Avatar-Planner toward center card
     - Line from Avatar-Sam toward center card
     - Animation: dashed line flows toward center (continuous loop)
     - Line color: matches design accent (appears to be indigo/blue)
+    - 24px spacing on each side of the animated line
+    - Animated line must be vertically centered to Card
 
 )
 
@@ -251,6 +261,11 @@ Part 2
 Body remains for each column
 Visual is replaced
 (When Next is clicked, each image respectively switches to (folder path).2.png - for example, entry point 1.png is replaced by entry point 1.2.png on the screen in exactly the same location)
+
+Explainer text pill: 
+- (16px cursor logo and gemini logos spaced apart by 12px), 12px spacing and then "Gemini and Cursor were used to create live prototypes for testing" 
+- A container with 8px padding and 40px border radius contains the text and icons. Container is centered horizontally 24px below the 3 columns
+- See Color styling in [[Deck Design Visual Decisions]]
 
 ___
 
@@ -300,19 +315,23 @@ H1: The Capacity Gap Agent and Wizard in the field
 Body: Our research showed a meaningful impact could be made when empowering Planners with these tools
 
 Stat unit structure definition:
-Eyebrow
-H3 (for displaying the metric which is animated as a counter animation with ease out)
-Body
-(24px to the left of each stat is a light indigo vertical line that runs the height of the stat content - all of the)
+- Eyebrow
+- H1 (for displaying the metric which is animated as a counter animation with ease out)
+- Body (24px to the left of each stat is a light indigo vertical line that runs the height of the stat content - all of the)
+- Max width: 300px
+
+Stat grid
+- 100px spacing between grid columns
+- 100px spacing between grid rows
 
 Stat 1
 Eyebrow: Reactive scheduling
-H3: 15%
+H1: 15%
 Body: of total overtime is attributed to reactive adjustments from unplanned work and under-optimized routes
 
 Stat 2
 Eyebrow: Repeat visits
-H3: 28%
+H1: 28%
 Body: of scheduled appointments require a second visit, likely resulting from poor triage or under-skilling.
 
 Stat 3
@@ -322,7 +341,7 @@ Body: of companies still used spreadsheets for job scheduling, leading to increa
 
 Stat 4
 Eyebrow: Disrupted work
-H3: 30%
+H1: 30%
 Body: of total work hours are spent handling unplanned emergencies, disrupting planned work and reducing capacity.
 
 

@@ -4,9 +4,10 @@ type AutoPlayVideoProps = {
   src: string;
   active: boolean;
   className?: string;
+  controls?: boolean;
 };
 
-export function AutoPlayVideo({ src, active, className }: AutoPlayVideoProps) {
+export function AutoPlayVideo({ src, active, className, controls = false }: AutoPlayVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export function AutoPlayVideo({ src, active, className }: AutoPlayVideoProps) {
       ref={ref}
       className={className}
       src={src}
-      controls
+      controls={controls}
       muted
       playsInline
       autoPlay

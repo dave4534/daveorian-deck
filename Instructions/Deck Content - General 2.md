@@ -46,7 +46,9 @@ Right side of header bar
 
 (two-column layout)
 
-notes: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi.B
+notes: 
+- בVonage אני הייתי אחראיי על כל העיצוב של ה R+D מקצה לקצה
+- בFiverr אני גם עיצבתי רוחבית והייתי המעצב המייסד של צוות הLocalization שעזר לנו לעשות סקייל לפייבר
 
 
 Eyebrow: Case Study
@@ -68,7 +70,12 @@ Visual: `[Slide Visuals/dave.png](https://portfolio-vids.b-cdn.net/Capacity%20An
 
 (two-column layout)
 
-notes: Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu.
+notes: 
+- ב Salesforce עבדתי בField Service שזה פלטפורמה לניהול צוותים ניידים כמו טכנאים ואנשי תחזוקה לחברות enterprise. אני בחרתי פרוייקט מסוים שאני חושב שיתקשר גם מה שאני עשיתי בsalesforce 
+- קפסיטי פלנינג זה ניהול צוותי עבודה בשטח
+- הפרוייקט שאני מציג עוסק באיך לעזור למנהלי צוותים לעבוד בזמן בלת״ם
+- מה זה בלת״ם
+
 
 Eyebrow: Capacity Planning
 **H1:** Leading the design for an AI-agent based workforce planning system
@@ -91,7 +98,14 @@ Value: Product Designer
 
 (two-column layout)
 
-notes: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.
+notes: 
+- בפילד סרוויס אנחנו עבדנו עם כמה פרסונות
+	- טכנאי
+	- אנשי החמ״ל שמשבצים את הטכנאים ביום יום
+	- פלנרז, שזה תפקיד תפעולי שעובד יותר על התמונה הגדולה של כוח אדם, מסתכל קדימה חודשים ומוודא שיהיו מספיק עובדים למשימות מתוכננות
+	- אם יש מקרה חירום כמו רעידת אדמה וזה נהיה ברור שבחודש הקרוב לא יהיו מספיק טכנאים בשטח ביחס לעבודה
+
+
 
 Eyebrow: The User
 **H1:** What's a Planner?
@@ -111,7 +125,10 @@ Within large organizations, Operations Planners are responsible for making sure 
 
 (two-column layout)
 
-notes: Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est qui dolorem ipsum.
+notes: 
+- כשאני התחלתי לעבוד בלייספורס פילד סרוויס אני קיבלתי ownership של דומיין שנקרא קפסיטי לימיטס
+- בתור מנהל צוותי טכנאים זה נותן יכולת לשמור כמות זמן מסויימת לכל סוג עבודה כל שבוע, כלומר זה לא תכנון, זה הרבה יותר פשוט, וזה יותר פיצר שעזר למנהלים ביום יום.
+- עם הזמן הפיצר הזה הוצג בחברה וקיבלת תיעדוף להיות פלטפורמה שעוזרת למנהלי צוותים להתמודד עם בלתמים של חברות ענק
 
 H1: A feature that evolved into a Suite
 Body: 
@@ -125,11 +142,18 @@ Visual: Video of the Capacity  https://portfolio-vids.b-cdn.net/Capacity%20Limit
 
 (two-column layout)
 
-notes: At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident similique sunt.
+notes:
+none
 
 **Eyebrow:** Understanding the Planner
 
 Part 1 
+Notes:
+- אספתי את כל החומר המחקרי הקיים
+- הכנסתי את זה ל notebooklm
+- זה עדיין השאיר אותי במקום שאני חייב להבין יותר לעומק מה חווית הפלנר, מה הצרכים בהקשר של industries מסוימים
+- הוצאתי לפועל workshop 
+
 
 
 H2: We wanted to know: How did Planners resolve gaps today?
@@ -146,6 +170,13 @@ Visual: (`Slide Visuals/Affinity Mapping.png`)
 
 
 Part 2
+Notes:
+- חידדתי את הממצאים עם אנשי UX Research + Product
+- הכנסתי את הממצאים ל chatGPT שעזר לי לייצר user stories
+- השתמשתי ב Figma MCP בכדי לייצר פלואים ששמענו מפלנרז בפגישה
+
+
+
 
 H2: Mapping out Planners' actual behavior
 Body: I extracted user stories as well as a flowchart using Claude, and the Figma MCP within Claude. We learned the domain-specific language used in Planners' workflow
@@ -161,6 +192,12 @@ Visual: (`Slide Visuals/Capacity Flowchart.png`)
 
 
 Part 3
+
+Notes:
+- המסר היה מאוד ברור. 
+- ישנם בלת״מים - זה חלק טבעי מאוד מהעולם ולכן זה חלק משמעותי מהעבודה של פלנרז
+- כרגע הם משתמשים בשיחות באל פה או טבלאות בכדי לנהל משא ומתן בין טריטוריות
+- פלנרז ביקשו פתרון שיעזור להם עם הבורקרטיה של המשא ומאתן 
 
 H2: After synthesizing the data, I found the layered themes from each pointing to a design approach.
 
@@ -194,7 +231,12 @@ ___
 
 ## Slide 6
 
-notes: Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae itaque earum rerum hic tenetur a sapiente delectus ut.
+notes: 
+- אז בואו נדבר על Autonomous negotiation - משא ומתן אוטונומי
+- לדוגמה אם יש לנו בלת״ם כמו נגיד מלחמה בצפון למשל, וחצי מהעובדים של סמנטה במילואים, היא תפנה לפלנר מכרמיאל לבדוק אם מתאפשר להם להעביר זמנית טכנאים עם קישורים ספציפיים
+- בנוסף לנסיון להשלים כוח עבודה מטריטוריה ששייכת לחברה של הפלנר, יש גם לחברות גדולות או תאגידים הרבה פעמים הסדרים עם חברות אחרות והם עוזרים זה לזה 
+- המוצר דגל של סיילספורס בשימוש ב AI הוא Agentforce
+- היתה ציפייה מאוד ספציפית מהמעסיקים של הפלנרז שהם השתמשו ב AI בשביל לעזור לתמרן אין טריטוריות
 
 
 Transition End (The autonomous negotiation card enters in a slide in animation with ease out and is displayed in the center of the slide.)
@@ -234,7 +276,19 @@ Build a centered horizontal layout with three sections:
 ## Slide 7
 
 
-notes: Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae itaque earum rerum hic tenetur a sapiente delectus ut.
+notes: 
+- משא ומתן אוטונומי זה מושג שאפשר לתקוף מכמה זוויות, אחת השאלות המהותיות זה באיזה Entry point הכי עוזר לפלנר 
+- אני עיצבתי הרבה אופציות, שכאן אני מראה 3 מתוך האופציות
+- כשנוחתים על הדשבורד מגיעים בעצם לדשבורד שהוא מקוסתם עם איזה data points שהפלנר תבחר.
+- כבררת מחדל החוויה שאני עיצבתי תענה לפלנר על שאלות כמו
+	- כמו שיש מינוס בבנק, כמה שעות כוח אדם אני במינוס כרגע? למשל 2,500 שעות עבודה
+	- מה כמות השעות של overtime?
+	- וכן הלאה
+- הentry point יכול להפיע בתור Daily brief מצד ימין, אחד מפורט או יותר מופשט, שנותן הזהרה כמו ״בעקבות מקרה חירום בצפון, זוהה מחסור ב2,500 שעות עבודה בחודש הקרוב״
+- הEntry point גם יכול להופיע בחלק הכי עליון של העמוד, ולכן יכול לתת גם ריאות מוגברת, וגם מאפשרת ליותר גמישות קיסטום בדשבורד.
+
+
+
 
 Eyebrow: Design Exploration
 H1: Which entry point options are there for Autonomous Negotiation? 
@@ -273,7 +327,18 @@ ___
 
 (Two-column layout)
 
-notes: Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus omnis.
+notes: 
+- עיצבתי שתי כלים שמאפשרים לפלנר גם להשתמש ב AI Agent בכדי לנהל את המשא ומתן, וגם לעשות את זה ידני, עם עזרה של AI בבחירת הכוח אדם המתאים.
+- המשתמש נוחת פה בדשבורד הוא רואה את המסר בבאנר
+- הוא רואה את המדדים שלו להיום
+- וידייק את אופציות הסינון בכדי להשוות למשל כמות כוח אדם מול כמות עבודה שבה יש צורך.
+- בבאנר יש לי אופציה לעשות Assign to agent
+- וגם יש לי אופציה לעשות את זה ידנית בוויזרד
+- בואו נקליק על Assign to Agent
+פלואו
+- אני רואה תמונת על ברורה של כמה מתוך המחסור מתאפשר להשלים באופן אוטונומי, וכמה יצריך התערבות של בנאדם 
+- אני מגדיר דגשים ספציפיים ואומר לAgent לתעדף חיפוש של טכנאים עם סקילז מסוימים 
+- המשך פלואו
 
 
 Eyebrow: Solution
@@ -307,7 +372,12 @@ Visual: (look in `Slide Visuals/Manual Flow/` and the images `Maual - 1.png` thr
 
 ## Slide 10
 
-notes: Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae itaque earum rerum hic tenetur a sapiente delectus ut.
+notes: 
+כמה מספרים שעוזרים לקבל פרופורציה על הimpact
+- חסכון של 15% Overtime בעקבות בלתמ״ים - כלומר מיליוני דולר בחודש נחסכים
+- מניעה של 28% מהפגישות עם טכנאי שמובילות לביקור נוסף, בעקבות שיבוץ לא מתאים או אם לטכנאי לא היה את הקישורים לעבודה
+- יעול של 25% מחברות שעדיין משתמשים באקסלים שגורמים להמון טעויות אנוש וזמן מבוזבז
+- חסכון של 30% מכמות השעות עבודה בעקבות בלתמ״ים שעכשיו עם הכלי הזה הופכים להיות אירועים בשליטה ועם ידע מראש מה צריך ומתי.
 
 
 Eyebrow: Takeaways
